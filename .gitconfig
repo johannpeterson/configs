@@ -1,0 +1,9 @@
+[user]
+	email = johann.peterson@gmail.com
+	name = Johann Peterson
+[core]
+	editor = vim
+[color]
+	diff = auto
+	branch = auto
+	status = auto
