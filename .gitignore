@@ -1,0 +1,9 @@
+#   ~/.gitignore
+#   git repository for config files
+#
+
+*
+!.vimrc
+!.bash_profile
+!.emacs
+!.gitignore
