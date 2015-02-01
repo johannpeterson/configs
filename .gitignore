@@ -7,3 +7,6 @@
 !.bash_profile
 !.emacs
 !.gitignore
+!.vim/
+.vim/tmp/
+.vim/backups/
