@@ -3,10 +3,16 @@
 #
 
 /*
-!.vimrc
+
+#   git-specific files
+!.gitignore
+!.gitconfig
+
+#   other config files
 !.bash_profile
 !.emacs
-!.gitignore
+
+!.vimrc
 !/.vim/
 /.vim/tmp/
 /.vim/backups/
