@@ -2,11 +2,11 @@
 #   git repository for config files
 #
 
-*
+/*
 !.vimrc
 !.bash_profile
 !.emacs
 !.gitignore
-!.vim/
-.vim/tmp/
-.vim/backups/
+!/.vim/
+/.vim/tmp/
+/.vim/backups/

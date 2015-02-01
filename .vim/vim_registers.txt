@@ -1,0 +1,24 @@
+
+--- Registers ---
+""   #            local PROMPT_CLR='\[${ClrBase3}\]'^J#            local INPUT_CL
+"0   "\[${ClrBase1}\]"
+"1   #            local PROMPT_CLR='\[${ClrBase3}\]'^J#            local INPUT_CL
+"2   ^J#    local     # Base03   =  8 # bright black^J#    local     Base03      
+"3   ^J
+"4   dd    # echo "DEBUG trap set."^J
+"5   #^J^J    case "$brightness" in ^J        dark)^J#            local PROMPT_CL
+"6   #^J## Base03   =  8 # bright black^J#export Base03='\[\033[1;30m\]'^J## Base
+"7   ^J
+"8   # Base03   =  8 # bright black^Jexport Base03='\033[1;30m\]'^J# Base02   =  
+"9   ^J
+"a   "\[${ClrBase1}\]"
+"c   vertical botright split ~/.bash_profile | vertical resize 30 | set nonumber
+"i   export^[uuu<80>kl<80>kl<80>kl<80>kl<80>kr<80>kr^[
+"q   0f\vf]S'
+"x       echom "l:buf_nr ".l:buf_nr^J    if 0 < l:buf_nr^J
+"-   '\[\e[1;37m\]' # was '\e[1;32m'
+"*   http://natelandau.com/my-mac-osx-bash_profile/
+".   "*<80>kb<80>kb
+":   q
+"%   /Users/johann/.bash_profile
+"#   /Users/johann/.vimrc
