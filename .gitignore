@@ -14,5 +14,10 @@
 
 !.vimrc
 !/.vim/
+!/.vim/**/
+!/.vim/bundle/*
+!/.vim/autoload/*
+!/.vim/indent/*
+!/.vim/**/
 /.vim/tmp/
 /.vim/backups/
