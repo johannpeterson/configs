@@ -236,3 +236,5 @@ alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file
 # The orginal version is saved in .bash_profile.pysave
 # PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
 export VIM_APP_DIR="/Applications/Development/"
+
+source ~/.bashrc
