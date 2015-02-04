@@ -13,11 +13,10 @@
 !.emacs
 
 !.vimrc
-!/.vim/
-!/.vim/**/
-!/.vim/bundle/*
-!/.vim/autoload/*
-!/.vim/indent/*
-!/.vim/**/
-/.vim/tmp/
-/.vim/backups/
+!.vim/
+#!.vim/**/
+#!.vim/bundle
+#!.vim/autoload/*
+#!.vim/indent/*
+.vim/tmp/
+.vim/backups/
