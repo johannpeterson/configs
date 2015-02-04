@@ -13,9 +13,14 @@
 !.emacs
 
 !.vimrc
+!.vim
 !.vim/
-#!.vim/**/
-#!.vim/bundle
+!.vim/*
+!.vim/**
+!.vim/bundle
+!.vim/bundle/*
+!.vim/bundle/**
+!.vim/bundle/**/
 #!.vim/autoload/*
 #!.vim/indent/*
 .vim/tmp/
