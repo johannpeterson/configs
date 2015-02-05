@@ -4,18 +4,31 @@
 #   1/30/2015
 #   ------------------------------------------------
 
+if [[ $OSTYPE == *linux* ]]; then
+    echo "Linux"
+    is_linux=1
+elif [[ $OSTYPE == *darwin* ]]; then
+    echo "OS X"
+    is_osx=1
+else
+    echo "Unknown OS"
+fi
+
 #   ------------------------------------------------
 #   PATH settings
 #   ------------------------------------------------
-PATH=$PATH:"$HOME/Library/Haskell/bin"
-PATH=$PATH:"/usr/local/Cellar/vim/7.4.488/bin"
-PATH=$PATH:"/Users/johann/Dropbox/todo"
-# MacPorts Installer addition on 2014-03-28_at_23:08:07: adding an appropriate PATH variable for use with MacPorts.
-PATH="/opt/local/bin":$PATH
-PATH="/opt/local/sbin":$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-PATH="$HOME/bin":$PATH
+PATH="$HOME/Library/Haskell/bin":"/usr/local/Cellar/vim/7.4.488/bin":$PATH
+PATH="$HOME/bin":"$HOME/Dropbox/todo":"/opt/local/bin":"/opt/local/sbin":$PATH
 export PATH
+
+# PATH=$PATH:"$HOME/Library/Haskell/bin"
+# PATH=$PATH:"/usr/local/Cellar/vim/7.4.488/bin"
+# PATH=$PATH:"$HOME/Dropbox/todo"
+# # MacPorts Installer addition on 2014-03-28_at_23:08:07: adding an appropriate PATH variable for use with MacPorts.
+# PATH="/opt/local/bin":$PATH
+# PATH="/opt/local/sbin":$PATH
+# # Finished adapting your PATH environment variable for use with MacPorts.
+# PATH="$HOME/bin":$PATH
 
 #   ------------------------------------------------
 #   Miscellaneous options
@@ -192,27 +205,17 @@ PS1='\h:\w\$' # in case prompt function is not working
 prompt normal
 
 #   ------------------------------------------------
-#   useful shell aliases
+#   Useful shell aliases
+#   some from http://natelandau.com/my-mac-osx-bash_profile/
 #   ------------------------------------------------
 
 alias t='todo.sh -ANt'
 alias ls="ls -Gp"
 alias ll="ls -alpG"
 alias lll="ls -alpG | less -R"
-# alias emacs="/opt/local/bin/emacs"
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideDesktop='defaults write com.apple.finder CreateDesktop -bool false;killall Finder'
-alias showDesktop='defaults write com.apple.finder CreateDesktop -bool true;killall Finder'
 alias tree='tree -CF'
 alias less='less -FSRXc'
 alias cdl='cd -'
-
-#   ------------------------------------------------
-#   More useful shell aliases from:
-#   http://natelandau.com/my-mac-osx-bash_profile/
-#   ------------------------------------------------
-
 alias ..='cd ../'                           # Go back 1 directory level
 alias ...='cd ../../'                       # Go back 2 directory levels
 alias .3='cd ../../../'                     # Go back 3 directory levels
@@ -220,7 +223,6 @@ alias .4='cd ../../../../'                  # Go back 4 directory levels
 alias .5='cd ../../../../../'               # Go back 5 directory levels
 alias .6='cd ../../../../../../'            # Go back 6 directory levels
 alias edit='subl'                           # edit:         Opens any file in sublime editor
-alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
 alias ~="cd ~"                              # ~:            Go Home
 alias c='clear'                             # c:            Clear terminal display
 alias which='type -all'                     # which:        Find executables
@@ -229,12 +231,23 @@ alias show_options='shopt'                  # Show_options: display bash options
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
-ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
 alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
+
+if [[ is_osx ]]; then
+    alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+    alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+    alias hideDesktop='defaults write com.apple.finder CreateDesktop -bool false;killall Finder'
+    alias showDesktop='defaults write com.apple.finder CreateDesktop -bool true;killall Finder'
+    alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
+    trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+    ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
+fi
 
 # The orginal version is saved in .bash_profile.pysave
 # PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
 export VIM_APP_DIR="/Applications/Development/"
 
-source ~/.bashrc
+if [[ -e .bashrc ]]; then
+    source ~/.bashrc
+fi
+
