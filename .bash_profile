@@ -6,10 +6,10 @@
 
 if [[ $OSTYPE == *linux* ]]; then
     echo "Linux"
-    is_linux=1
+    is_linux=yes
 elif [[ $OSTYPE == *darwin* ]]; then
     echo "OS X"
-    is_osx=1
+    is_osx=yes
 else
     echo "Unknown OS"
 fi
@@ -233,7 +233,7 @@ alias cic='set completion-ignore-case On'   # cic:          Make tab-completion 
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
 
-if [[ is_osx ]]; then
+if [ "$is_osx" ]; then
     echo "OX-X definitions."
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
