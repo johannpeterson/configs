@@ -17,8 +17,8 @@ fi
 #   ------------------------------------------------
 #   PATH settings
 #   ------------------------------------------------
-PATH="$HOME/Library/Haskell/bin":"/usr/local/Cellar/vim/7.4.488/bin":$PATH
-PATH="$HOME/bin":"$HOME/Dropbox/todo":"/opt/local/bin":"/opt/local/sbin":$PATH
+# PATH="$HOME/Library/Haskell/bin":$PATH
+PATH="$HOME/bin":"/usr/local/bin":"$HOME/Dropbox/todo":"/opt/local/bin":"/opt/local/sbin":$PATH
 export PATH
 
 # PATH=$PATH:"$HOME/Library/Haskell/bin"
@@ -33,7 +33,7 @@ export PATH
 #   ------------------------------------------------
 #   Miscellaneous options
 #   ------------------------------------------------
-export EDITOR=/usr/local/vim
+export EDITOR=/usr/local/bin/vim
 
 # default blocksize for ls, df, du
 # http://natelandau.com/my-mac-osx-bash_profile/
