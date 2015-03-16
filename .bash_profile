@@ -20,8 +20,8 @@ fi
 #   ------------------------------------------------
 #   PATH settings
 #   ------------------------------------------------
-PATH="$HOME/Library/Haskell/bin":"/usr/local/Cellar/vim/7.4.488/bin":$PATH
-PATH="$HOME/bin":"$HOME/Dropbox/todo":"/opt/local/bin":"/opt/local/sbin":$PATH
+# PATH="$HOME/Library/Haskell/bin":$PATH
+PATH="$HOME/bin":"/usr/local/bin":"$HOME/Dropbox/todo":"/opt/local/bin":"/opt/local/sbin":$PATH
 export PATH
 
 # PATH=$PATH:"$HOME/Library/Haskell/bin"
@@ -37,10 +37,15 @@ export PATH
 #   Miscellaneous options
 #   ------------------------------------------------
 export HISTCONTROL=ignoreboth
-export EDITOR=/usr/local/vim
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 shopt -s checkwinsize
+
+if [ "$is_osx" ]; then
+    export EDITOR=/usr/local/bin/vim
+else
+    export EDITOR=/usr/local/vim
+fi
 
 # default blocksize for ls, df, du
 # http://natelandau.com/my-mac-osx-bash_profile/
