@@ -213,6 +213,7 @@ alias t='todo.sh -ANt'
 alias ls="ls -Gp"
 alias ll="ls -alpG"
 alias lll="ls -alpG | less -R"
+alias l.="ls -d .*"
 alias tree='tree -CF'
 alias less='less -FSRXc'
 alias cdl='cd -'
@@ -231,10 +232,10 @@ alias show_options='shopt'                  # Show_options: display bash options
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
 
 if [ "$is_osx" ]; then
     echo "OX-X definitions."
+    alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
     alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideDesktop='defaults write com.apple.finder CreateDesktop -bool false;killall Finder'
