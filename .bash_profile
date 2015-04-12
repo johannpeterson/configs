@@ -266,6 +266,8 @@ if [ "$is_osx" ]; then
     alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
     alias hideDesktop='defaults write com.apple.finder CreateDesktop -bool false;killall Finder'
     alias showDesktop='defaults write com.apple.finder CreateDesktop -bool true;killall Finder'
+    # OS X WiFi utility, e.e. airport --getinfo; airport scan
+    alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
     alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
     trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
     ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
