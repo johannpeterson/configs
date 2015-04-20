@@ -237,10 +237,10 @@ esac
 #   ------------------------------------------------
 
 alias t='todo.sh -ANt'
-alias ls="ls -Gp --color=auto"
-alias ll="ls -alpG --color=auto"
-alias lll="ls -alpG --color=always | less -R"
-alias l.="ls -d .*"
+alias ls='ls -Gp'
+alias ll='ls -alpG'
+alias lll='ls -alpG | less -R'
+alias l.='ls -d .*'
 alias tree='tree -CF'
 alias less='less -FSRXc'
 alias cdl='cd -'
@@ -250,7 +250,7 @@ alias .3='cd ../../../'                     # Go back 3 directory levels
 alias .4='cd ../../../../'                  # Go back 4 directory levels
 alias .5='cd ../../../../../'               # Go back 5 directory levels
 alias .6='cd ../../../../../../'            # Go back 6 directory levels
-alias ~="cd ~"                              # ~:            Go Home
+alias ~='cd ~'                              # ~:            Go Home
 alias c='clear'                             # c:            Clear terminal display
 alias which='type -all'                     # which:        Find executables
 alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
