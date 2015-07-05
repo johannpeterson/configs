@@ -282,3 +282,9 @@ if [[ -e .bashrc ]]; then
     # source ~/.bashrc
 fi
 
+if [ "$is_osx" ]; then
+    export DOCKER_HOST=tcp://192.168.59.103:2376
+    export DOCKER_CERT_PATH=/Users/johann/.boot2docker/certs/boot2docker-vm
+    export DOCKER_TLS_VERIFY=1
+fi
+
