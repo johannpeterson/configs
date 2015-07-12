@@ -11,8 +11,6 @@ if [[ $OSTYPE == *linux* ]]; then
     echo "os: Linux"
     is_linux=yes
 elif [[ $OSTYPE == *darwin* ]]; then
-    echo "os: OS X"
-    is_osx=yes
 else
     echo "os: unknown"
 fi
@@ -258,7 +256,7 @@ alias show_options='shopt'                  # Show_options: display bash options
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-alias dm='python3 manage.py'
+alias djm='python3 manage.py'
 
 if [ "$is_osx" ]; then
     echo "OX-X definitions."
