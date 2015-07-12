@@ -30,3 +30,5 @@
 #!.vim/indent/*
 .vim/tmp/
 .vim/backups/
+.vim/.netrwhist
+*.swp

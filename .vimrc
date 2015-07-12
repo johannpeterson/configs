@@ -65,7 +65,7 @@ filetype plugin indent on
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nmap <silent> <leader>eb :e $HOME/.bash_profile<CR>
-" Toggle relative line numbering
+" Toggle relative line numbering with ,n
 nmap <silent> <leader>n :set relativenumber!<CR>
 " Clear search string (& highlighting) when screen is redrawn with Ctrl-L
 nnoremap <C-L> :let @/ = ""<CR><C-L>
