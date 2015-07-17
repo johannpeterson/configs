@@ -11,6 +11,7 @@ if [[ $OSTYPE == *linux* ]]; then
     echo "os: Linux"
     is_linux=yes
 elif [[ $OSTYPE == *darwin* ]]; then
+    is_osx=yes
 else
     echo "os: unknown"
 fi
