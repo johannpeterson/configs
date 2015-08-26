@@ -258,6 +258,7 @@ alias fix_stty='stty sane'                  # fix_stty:     Restore terminal set
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 alias djm='python3 manage.py'
+title () { echo -ne "\033]2;$1\007"; }      # title:        Set bash window title
 
 if [ "$is_osx" ]; then
     echo "OX-X definitions."
@@ -270,6 +271,7 @@ if [ "$is_osx" ]; then
     alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
     alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
     trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+    alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
     ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
 fi
 
