@@ -54,6 +54,7 @@ set history=1000
 set undolevels=1000
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set visualbell
+set t_vb=
 set noerrorbells
 set fenc=utf-8
 set backspace=indent,eol,start
