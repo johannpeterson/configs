@@ -273,7 +273,7 @@ if [ "$is_osx" ]; then
     alias ll='ls -alpG'
     alias lll='ls -alpG | less -R'
     alias l.='ls -d .*'
-else if [ "$is_linux" ]; then
+else
     alias ls='ls -Gp --color'
     alias ll='ls -alpG --color'
     alias lll='ls -alpG --color | less -R'
