@@ -236,10 +236,6 @@ esac
 #   ------------------------------------------------
 
 alias t='todo.sh -ANt'
-alias ls='ls -Gp'
-alias ll='ls -alpG'
-alias lll='ls -alpG | less -R'
-alias l.='ls -d .*'
 alias tree='tree -CF'
 alias less='less -FSRXc'
 alias cdl='cd -'
@@ -273,6 +269,15 @@ if [ "$is_osx" ]; then
     trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
     alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
     ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
+    alias ls='ls -Gp'
+    alias ll='ls -alpG'
+    alias lll='ls -alpG | less -R'
+    alias l.='ls -d .*'
+else if [ "$is_linux" ]; then
+    alias ls='ls -Gp --color'
+    alias ll='ls -alpG --color'
+    alias lll='ls -alpG --color | less -R'
+    alias l.='ls -d --color .*'
 fi
 
 # The orginal version is saved in .bash_profile.pysave
