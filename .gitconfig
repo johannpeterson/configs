@@ -11,3 +11,4 @@
 	default = simple
 [credential]
 	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+	helper = osxkeychain
