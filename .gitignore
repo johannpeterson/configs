@@ -6,7 +6,7 @@
 
 #   git-specific files
 !.gitignore
-!.gitconfig
+.gitconfig
 !.gitmodules
 !.git*
 
