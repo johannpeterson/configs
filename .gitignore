@@ -5,10 +5,10 @@
 /*
 
 #   git-specific files
+!.git*
 !.gitignore
 .gitconfig
 !.gitmodules
-!.git*
 
 #   other config files
 !.bash_profile
