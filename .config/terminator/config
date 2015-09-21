@@ -1,0 +1,80 @@
+[global_config]
+  always_split_with_profile = True
+  title_transmit_bg_color = "#ffffff"
+  focus = mouse
+  title_transmit_fg_color = "#000000"
+[keybindings]
+[profiles]
+  [[default]]
+    use_system_font = False
+    login_shell = True
+    scrollback_lines = 2500
+    background_image = None
+    foreground_color = "#ffffff"
+    font = Anonymous Pro 11
+  [[Solarized Dark]]
+    background_image = None
+    use_system_font = False
+    scrollback_lines = 2500
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    foreground_color = "#839496"
+    font = Anonymous Pro 11
+    background_color = "#002b36"
+  [[Solarized Light]]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    font = Anonymous Pro 11
+    background_color = "#fdf6e3"
+    use_system_font = False
+    foreground_color = "#657b83"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+  [[2x2]]
+    [[[child0]]]
+      position = 71:24
+      type = Window
+      order = 0
+      parent = ""
+      size = 1170, 1388
+    [[[child1]]]
+      position = 713
+      type = VPaned
+      order = 0
+      parent = child0
+    [[[child2]]]
+      position = 585
+      type = HPaned
+      order = 0
+      parent = child1
+    [[[child5]]]
+      position = 584
+      type = HPaned
+      order = 1
+      parent = child1
+    [[[terminal3]]]
+      profile = Solarized Dark
+      group = 2x2
+      type = Terminal
+      order = 0
+      parent = child2
+    [[[terminal4]]]
+      profile = Solarized Dark
+      type = Terminal
+      order = 1
+      parent = child2
+    [[[terminal7]]]
+      profile = Solarized Dark
+      type = Terminal
+      order = 1
+      parent = child5
+    [[[terminal6]]]
+      profile = Solarized Dark
+      type = Terminal
+      order = 0
+      parent = child5
+[plugins]
