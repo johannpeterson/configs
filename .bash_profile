@@ -255,6 +255,7 @@ alias cic='set completion-ignore-case On'   # cic:          Make tab-completion 
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 alias djm='python3 manage.py'
 title () { echo -ne "\033]2;$1\007"; }      # title:        Set bash window title
+alias srcgrep='grep -rinI --exclude=*.log'
 
 if [ "$is_osx" ]; then
     echo "OX-X definitions."
