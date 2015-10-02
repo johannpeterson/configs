@@ -297,3 +297,4 @@ if [ "$is_osx" ]; then
     export DOCKER_TLS_VERIFY=1
 fi
 
+export ANSIBLE_HOST_KEY_CHECKING=False
