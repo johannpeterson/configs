@@ -275,12 +275,16 @@ if [ "$is_osx" ]; then
     alias ll='ls -alpG'
     alias lll='ls -alpG | less -R'
     alias l.='ls -d .*'
+    alias dircolors=gdircolors
 else
     alias ls='ls -Gp --color'
     alias ll='ls -alpG --color'
     alias lll='ls -alpG --color | less -R'
     alias l.='ls -d --color .*'
 fi
+
+test -e ~/.dircolors && \
+    eval `dircolors -b ~/.dircolors`
 
 # The orginal version is saved in .bash_profile.pysave
 # PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
