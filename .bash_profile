@@ -166,6 +166,12 @@ function prompt {
     # X_MARK='\342\234\227'
     # or like this?
     # local CHECK_MARK='\[\033\342\234\227\]'
+    if [ -n "$VIRTUAL_ENV" ]
+        then
+            local VENV_INDICATOR="${DELIM_CLR}(ve)${PROMPT_CLR}"
+        else
+            local VENV_INDICATOR="${DELIM_CLR}${PROMPT_CLR}"
+    fi
 
     local TEST_PROMPT="${Red}\h${Base1}:${Blue}\w${Base02}\$ "
 
@@ -173,14 +179,15 @@ function prompt {
     local OLD_PROMPT="\h:\w\$ "
 
     # no info prompt with colors
-    local SIMPLE_PROMPT=${PROMPT_END_CLR}"$ "${INPUT_CLR}
+    local SIMPLE_PROMPT=${PROMPT_END_CLR}${VENV_INDICATOR}"$ "${INPUT_CLR}
 
     # nice prompt with host & working directory, in color
-    local NORMAL_PROMPT=${PROMPT_CLR}"\h"${DELIM_CLR}":"${PROMPT_CLR}"\w"${PROMPT_END_CLR}"$ "${INPUT_CLR}
+    local NORMAL_PROMPT=${VENV_INDICATOR}${PROMPT_CLR}"\h"${DELIM_CLR}":"${PROMPT_CLR}"\w"${PROMPT_END_CLR}"$ "${INPUT_CLR}
 
     # mulit-line prompt - conditional for exit code is not working
     # also line continuations don't seem to be working
     local BIG_PROMPT=${PROMPT_CLR}\
+${VENV_INDICATOR}\
 "$(if [[ $? != 0 ]]; then echo "${ERROR_CLR}"\[\033\342\234\227\; else echo "\
 ${NO_ERROR_CLR}"\[\342\234\223; fi)"\
 ${PROMPT_CLR}" \t "\
