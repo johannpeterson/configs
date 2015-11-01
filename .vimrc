@@ -58,6 +58,7 @@ set t_vb=
 set noerrorbells
 set fenc=utf-8
 set backspace=indent,eol,start
+set tags=./tags;
 
 filetype plugin indent on
 
