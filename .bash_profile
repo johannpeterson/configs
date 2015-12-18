@@ -77,7 +77,8 @@ fi
 
 
 export GREP_OPTIONS='--color=auto'
-export LESSOPEN='|~/.lessfilter %s'
+export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
+export LESS=" -R"
 
 # Solarized colors in OS X Terminal
 # Base03   =  8 # bright black

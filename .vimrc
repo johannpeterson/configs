@@ -29,7 +29,11 @@ let g:solarized_termtrans=1
 " let g:solarized_italic=0
 " let g:solarized_contrast=
 " let g:solarized_visibility=low
-set background=dark
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
 colorscheme solarized
 call togglebg#map("<F5>")
 
