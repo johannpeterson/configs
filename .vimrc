@@ -15,6 +15,7 @@ set colorcolumn=80
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set list
 set lazyredraw
+set relativenumber
 
 " colors
 " http://ethanschoonover.com/solarized
@@ -62,7 +63,10 @@ set t_vb=
 set noerrorbells
 set fenc=utf-8
 set backspace=indent,eol,start
+set whichwrap=b,s,h,l,<,>,[,]
 set tags=./tags;
+set nobackup
+set noswapfile
 
 filetype plugin indent on
 
@@ -76,7 +80,25 @@ nmap <silent> <leader>n :set relativenumber!<CR>
 " Clear search string (& highlighting) when screen is redrawn with Ctrl-L
 nnoremap <C-L> :let @/ = ""<CR><C-L>
 " ,rw = clear all trailing whitespace from buffer
-nmap <silent> <leader>rw :%s/[ \t][ \t]*$//<CR>
+" nmap <silent> <leader>rw :%s/[ \t][ \t]*$//<CR>
+nmap <silent> <leader>rw call StripTrailingWhitespace()
+
+"
+" -------------------------------------------------------------------
+"
+" StripTrailingWhitespace
+" taken from http://spf13.com via https://github.com/thunderboltsid/vim-configuration/blob/master/vimrc
+function! StripTrailingWhitespace()
+    " save last search & cursor position:
+    let _s=@/
+    let l = line(".")
+    let x = col(".")
+    " strip whitespace:
+    %/\s\+$//e
+    " Clean up:
+    let @/=_s
+    call cursor(l, c)
+endfunction
 
 "
 " -------------------------------------------------------------------
