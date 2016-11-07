@@ -266,6 +266,11 @@ title () { echo -ne "\033]2;$1\007"; }      # title:        Set bash window titl
 # alias srcgrep='grep -rinI --exclude=*.log'
 srcgrep () { grep -inrI --exclude=*.log $1 ./; }
 
+# http://unix.stackexchange.com/questions/38072/how-can-i-save-the-last-command-to-a-file
+lastcommand() {
+    fc -ln "$1" "$1" | sed '1s/^[[:space:]]*//'
+}
+
 if [ "$is_osx" ]; then
     echo "OX-X definitions."
     alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
