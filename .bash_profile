@@ -294,6 +294,8 @@ else
     alias ll='ls -alpG --color'
     alias lll='ls -alpG --color | less -R'
     alias l.='ls -d --color .*'
+    alias v='xclip -o'
+    alias c='xclip -selection clipboard'
 fi
 
 test -e ~/.dircolors && \
