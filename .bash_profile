@@ -21,6 +21,7 @@ fi
 #   ------------------------------------------------
 # PATH="$HOME/Library/Haskell/bin":$PATH
 PATH="$HOME/bin":"/usr/local/bin":"$HOME/Dropbox/todo":"/opt/local/bin":"/opt/local/sbin":$PATH
+PATH="/Users/johann/Library/Python/3.7/bin":$PATH
 export PATH
 
 # PATH=$PATH:"$HOME/Library/Haskell/bin"
@@ -320,3 +321,13 @@ fi
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+# Setting PATH for Python 3.7
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+export PATH
+
+# Setting PATH for Python 3.6
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+export PATH
