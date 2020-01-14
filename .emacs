@@ -1,5 +1,13 @@
+;; Text mode and Auto Fill mode
+;; The next two lines put Emacs into Text mode
+;; and Auto Fill mode, and are for writers who
+;; want to start writing prose rather than code.
+(setq-default major-mode 'text-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
 ;;; General emacs configuration stuff
 (require 'package)
+(add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
 (package-initialize)
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -8,14 +16,16 @@
 (setq inhibit-splash-screen t)
 ;; only type `y` instead of `yes`
 (fset 'yes-or-no-p 'y-or-n-p)
-(menu-bar-mode -1) 
+(menu-bar-mode 1) 
 (tool-bar-mode -1) ;; no toolbar
 (if window-system
     (progn
       (scroll-bar-mode -1) 
       (set-frame-font "Anonymous Pro-12"))) 
 (put 'scroll-left 'disabled nil)
-(load-theme 'zenburn t)
+
+;; Causes an error:
+;; (load-theme 'zenburn t)
 
 ;; fuzzy matching on find-file, buffer switch
 (ido-mode t)
@@ -146,3 +156,50 @@ Assumes that the frame is only split into two."
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (put 'downcase-region 'disabled nil)
+
+;; ---------------------------------------------------------
+;; org-ref
+
+(require 'org-ref)
+(require 'org-pdfview)
+(require 'org-ref-pdf)
+(require 'doi-utils)
+(require 'org-ref-url-utils)
+(require 'org-ref-bibtex)
+(require 'org-ref-latex)
+(require 'org-ref-arxiv)
+(require 'org-ref-pubmed)
+(require 'org-ref-isbn)
+(require 'org-ref-wos)
+(require 'org-ref-scopus)
+(require 'org-ref-scifinder)
+(require 'org-ref-worldcat)
+(require 'org-ref-sci-id)
+(require 'ffap)
+   
+;; Setup org-ref
+(setq reftex-default-bibliography '("/Users/johann/Dropbox/notes/reading/reading-log.bib"))
+(setq org-ref-default-bibliography '("/Users/johann/Dropbox/notes/reading/reading-log.bib"))
+(setq org-ref-bibliography-notes '("/Users/johann/Dropbox/notes/reading/reading-log.org"
+                                   org-ref-pdf-directory "/Users/johann/Dropbox/notes/reading/pdfs/"))
+(setq org-ref-helm-bibtex-action-preference 'mixed)
+
+(setq org-ref-completion-library 'org-ref-helm-bibtex)
+
+;; (setq bibtex-completion-bibliography ("/Users/johann/Dropbox/notes/reading/reading-log.bib")
+;;      bibtex-completion-library-path "/Users/johann/Dropbox/notes/reading/bibtex-pdfs"
+;;      bibtex-completion-notes-path "/Users/johann/Dropbox/notes/reading/notes.org")
+
+;; open pdf with system pdf viewer (works on mac)
+(setq bibtex-completion-pdf-open-function
+  (lambda (fpath)
+    (start-process "open" "*open*" "open" fpath)))
+
+;; alternative
+;; (setq bibtex-completion-pdf-open-function 'org-open-file)
+
+(require 'helm-bibtex)
+(setq bibtex-completion-bibliography
+      '("/Users/johann/Dropbox/notes/reading/reading-log.bib"))
+(setq bibtex-completion-library-path
+      '("/Users/johann/Dropbox/notes/reading/pdfs"))
