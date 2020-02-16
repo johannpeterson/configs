@@ -36,10 +36,30 @@ export PATH
 #   ------------------------------------------------
 #   Miscellaneous options
 #   ------------------------------------------------
+
+# no duplicate lines or lines starting with space:
 export HISTCONTROL=ignoreboth
 export HISTSIZE=1000
 export HISTFILESIZE=2000
+
+# Don't overwrite history file:
+shopt -s histappend
+
+# Check the window size after each command and update LINES & COLUMNS:
 shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# If this is an xterm set the title to user@host:dir
+# case "$TERM" in
+# xterm*|rxvt*)
+#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+#     ;;
+# *)
+#     ;;
+# esac
 
 if [ "$is_osx" ]; then
     export EDITOR=/usr/local/bin/vim
@@ -75,7 +95,6 @@ fi
 # export LS_COLORS=’di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90′
 # export LSCOLORS=gxfxcxdxbxexexabagacad
 # export LS_COLORS=gxfxcxdxbxexexabagacad
-
 
 export GREP_OPTIONS='--color=auto'
 export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
@@ -266,7 +285,8 @@ alias djm='python3 manage.py'
 title () { echo -ne "\033]2;$1\007"; }      # title:        Set bash window title
 # alias srcgrep='grep -rinI --exclude=*.log'
 srcgrep () { grep -inrI --exclude=*.log $1 ./; }
-
+findfile () { find / -name "$1" 1>&1 2>/dev/null; }
+    
 # http://unix.stackexchange.com/questions/38072/how-can-i-save-the-last-command-to-a-file
 lastcommand() {
     fc -ln "$1" "$1" | sed '1s/^[[:space:]]*//'
@@ -289,18 +309,44 @@ if [ "$is_osx" ]; then
     alias ll='ls -alpG'
     alias lll='ls -alpG | less -R'
     alias l.='ls -d .*'
+    alias l='ls -CF'
+    alias la='ls -A'
     alias dircolors=gdircolors
+    # Add an "alert" alias for long running commands.  Use like so:
+    #   sleep 10; alert
+    alert () { osascript -e 'display notification "Command complete."' ; }
 else
     alias ls='ls -Gp --color'
     alias ll='ls -alpG --color'
     alias lll='ls -alpG --color | less -R'
     alias l.='ls -d --color .*'
+    alias l='ls -CF'
+    alias la='ls -A'
     alias v='xclip -o'
     alias c='xclip -selection clipboard'
+
+    # Add an "alert" alias for long running commands.  Use like so:
+    #   sleep 10; alert
+    alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
 test -e ~/.dircolors && \
     eval `dircolors -b ~/.dircolors`
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
 
 # The orginal version is saved in .bash_profile.pysave
 # PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
