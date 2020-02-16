@@ -12,6 +12,7 @@
 
 #   other config files
 !.bash_profile
+!.bashrc
 !.emacs
 !.ctags
 
