@@ -1,0 +1,109 @@
+#   ------------------------------------------------
+#   Useful shell aliases
+#   some from http://natelandau.com/my-mac-osx-bash_profile/
+#   ------------------------------------------------
+
+alias t='todo.sh -ANt'
+alias tree='tree -CF'
+alias less='less -FSRXc'
+alias cdl='cd -'
+
+# Go up the directory tree 1...6 levels:
+alias ..='cd ../'                           
+alias ...='cd ../../'                       
+alias .3='cd ../../../'                     
+alias .4='cd ../../../../'                  
+alias .5='cd ../../../../../'               
+alias .6='cd ../../../../../../'
+
+alias ~='cd ~'                              # ~:            Go Home
+alias c='clear'                             # c:            Clear terminal display
+alias which='type -a'                       # which:        Find executables
+alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable paths
+alias show_options='setopt'                 # Show_options: display shell options settings
+alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
+alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+
+mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
+
+# manage for Django
+alias djm='python3 manage.py'
+
+# set bash window title:
+title () { echo -ne "\033]2;$1\007"; }
+
+# alias srcgrep='grep -rinI --exclude=*.log'
+srcgrep () { grep -inrI --exclude=*.log $1 ./; }
+
+# find by name, with stderr redirected, e.g.
+#   findfile myprogram.py
+findfile () { find / -name "$1" 1>&1 2>/dev/null; }
+    
+# http://unix.stackexchange.com/questions/38072/how-can-i-save-the-last-command-to-a-file
+lastcommand() {
+    fc -ln "$1" "$1" | sed '1s/^[[:space:]]*//'
+}
+
+if [ "$is_osx" ]; then
+    echo "OS X alias definitions"
+
+    # Pipe to a file on MacOS Desktop:
+    alias DT='tee ~/Desktop/terminalOut.txt'
+
+    # showFiles & hideFiles switch display of hidden files in the Finder
+    alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+    alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+    # hideDesktop & showDesktop
+    alias hideDesktop='defaults write com.apple.finder CreateDesktop -bool false;killall Finder'
+    alias showDesktop='defaults write com.apple.finder CreateDesktop -bool true;killall Finder'
+
+    # OS X WiFi utility, e.e. airport --getinfo; airport scan
+    alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+
+    # opens the current directory in Finder
+    alias f='open -a Finder ./'
+
+    # Moves a file to the OS X trash (from the command line):
+    trash () { command mv "$@" ~/.Trash ; }
+
+    # run Firefox
+    alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+
+    # open a file in OS X Quicklook Preview
+    ql () { qlmanage -p "$*" >& /dev/null; }
+    
+    alias ls='ls -Gp'
+    alias ll='ls -alpG'
+    alias lll='ls -alpG | less -R'
+    alias l.='ls -d .*'
+    alias l='ls -CF'
+    alias la='ls -A'
+    alias dircolors=gdircolors
+    
+    # Add an "alert" for long running commands.  Use like so:
+    #   sleep 10; alert
+    alert () {
+          # zsh version, see:
+          # http s://stackoverflow.com/questions/25295186/access-to-last-command-in-zsh-not-previous-command-line
+          
+          last_cmd=$(echo $history[$HISTCMD] | sed '1s/^[[:space:]]*//' | sed 's/;[[:space:]]*alert[[:space:]]*$//');
+          osa_cmd="display notification \"$last_cmd\" with title \"Command Complete\"";
+          osascript -e $osa_cmd;
+          }
+else
+    echo "Linux alias definitions"
+    
+    alias ls='ls -Gp --color'
+    alias ll='ls -alpG --color'
+    alias lll='ls -alpG --color | less -R'
+    alias l.='ls -d --color .*'
+    alias l='ls -CF'
+    alias la='ls -A'
+    alias v='xclip -o'
+    alias c='xclip -selection clipboard'
+
+    # Add an "alert" alias for long running commands.  Use like so:
+    #   sleep 10; alert
+    alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+fi
