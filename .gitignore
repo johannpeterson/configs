@@ -21,6 +21,7 @@
 !.zlogin
 !.zlogout
 !.aliases
+!.zshprompt
 
 !.lessfilter
 
