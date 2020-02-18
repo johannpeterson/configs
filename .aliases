@@ -46,7 +46,7 @@ lastcommand() {
 if [ "$is_osx" ]; then
     echo "OS X alias definitions"
 
-    Piipe to a file on MacOS Desktop:
+    # Pipe to a file on MacOS Desktop:
     alias DT='tee ~/Desktop/terminalOut.txt'
 
     # showFiles & hideFiles switch display of hidden files in the Finder
