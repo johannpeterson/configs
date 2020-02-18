@@ -88,3 +88,13 @@ if [ -f ~/.aliases ]; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+#   ------------------------------------------------
+#   Prompt
+#   ------------------------------------------------
+
+if [ -f ~/.zshprompt ]; then
+    . ~/.zshprompt
+else
+    PROMPT='%2~ %(!.#.>) '
+fi

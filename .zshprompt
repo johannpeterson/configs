@@ -1,0 +1,14 @@
+#!/bin/zsh
+#   ------------------------------------------------
+#   Prompt
+#   ------------------------------------------------
+
+bkt_color='%F{068}'
+txt_color='%F{247}'
+LBKT="%{$bkt_color%}[%{%f%}"
+RBKT="%{$bkt_color%}]%{%f%}"
+PMT_STATUS="%(?.%F{green}√.%F{red}?%?)%f"
+PMT_USER="%{$LBKT%}%{$txt_color%}%n@%m%{$RBKT%}"
+PMT_DIR="%{$LBKT%}%{$txt_color%}%2~%{$RBKT%}"
+PMT_JOBS="%{$LBKT%}%{$txt_color%}jobs: %j%{$RBKT%}"
+PROMPT=" $PMT_STATUS ""$PMT_USER ""$PMT_DIR ""$PMT_JOBS "$'\n'" %# "
