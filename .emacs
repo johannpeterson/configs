@@ -180,7 +180,9 @@ Assumes that the frame is only split into two."
 ;; ---------------------------------------------------------
 ;; org-mode & LaTeX
 
-(setq jp-org-directory "/Users/johann/Dropbox/org/")
+; There should be a subdirectory of the home directory,
+; possibly a link, which contains all the org files.
+(setq jp-org-directory "~/org/")
 (setq jp-bibliography-file (concat jp-org-directory "references.bib"))
 (setq jp-reading-log-file (concat jp-org-directory "reading.org"))
 
