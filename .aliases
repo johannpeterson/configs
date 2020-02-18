@@ -18,11 +18,12 @@ alias .6='cd ../../../../../../'
 
 alias ~='cd ~'                              # ~:            Go Home
 alias c='clear'                             # c:            Clear terminal display
-alias which='type -all'                     # which:        Find executables
-alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-alias show_options='shopt'                  # Show_options: display bash options settings
+alias which='type -a'                       # which:        Find executables
+alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable paths
+alias show_options='setopt'                 # Show_options: display shell options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 
 # manage for Django
@@ -80,10 +81,16 @@ if [ "$is_osx" ]; then
     alias la='ls -A'
     alias dircolors=gdircolors
     
-    # Add an "alert" alias for long running commands.  Use like so:
+    # Add an "alert" for long running commands.  Use like so:
     #   sleep 10; alert
-    # Currently doesn't send the name of the command (see linux version).
-    alert () { osascript -e 'display notification "Command complete."' ; }
+    alert () {
+          # zsh version, see:
+          # http s://stackoverflow.com/questions/25295186/access-to-last-command-in-zsh-not-previous-command-line
+          
+          last_cmd=$(echo $history[$HISTCMD] | sed '1s/^[[:space:]]*//' | sed 's/;[[:space:]]*alert[[:space:]]*$//');
+          osa_cmd="display notification \"$last_cmd\" with title \"Command Complete\"";
+          osascript -e $osa_cmd;
+          }
 else
     echo "Linux alias definitions"
     
