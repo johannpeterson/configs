@@ -15,6 +15,12 @@
 !.bashrc
 !.emacs
 !.ctags
+!.zshrc
+!.zshenv
+!.zprofile
+!.zlogin
+!.zlogout
+!.aliases
 
 !.lessfilter
 
