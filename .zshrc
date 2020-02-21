@@ -21,24 +21,6 @@ fi
 #   PATH settings
 #   ------------------------------------------------
 # PATH="$HOME/Library/Haskell/bin":$PATH
-PATH="$HOME/bin":"/usr/local/bin":"/opt/local/bin":"/opt/local/sbin":$PATH
-PATH="/Users/johann/Library/Python/3.7/bin":$PATH
-
-# Setting PATH for Python 3.7
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
-export PATH
-
-# Setting PATH for Python 3.6
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-export PATH
-
-# The orginal version is saved in .bash_profile.pysave
-# PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-export VIM_APP_DIR="/Applications/Development/"
-
-export PATH
 
 # PATH=$PATH:"$HOME/Library/Haskell/bin"
 # PATH=$PATH:"/usr/local/Cellar/vim/7.4.488/bin"
@@ -48,6 +30,22 @@ export PATH
 # PATH="/opt/local/sbin":$PATH
 # # Finished adapting your PATH environment variable for use with MacPorts.
 # PATH="$HOME/bin":$PATH
+
+PATH="$HOME/bin":"/usr/local/bin":"/opt/local/bin":"/opt/local/sbin":$PATH
+PATH="/Users/johann/Library/Python/3.7/bin":$PATH
+
+# Setting PATH for Python 3.7
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+
+# Setting PATH for Python 3.6
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+export PATH
+
+# The orginal version is saved in .bash_profile.pysave
+# PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+export VIM_APP_DIR="/Applications/Development/"
 
 #   ------------------------------------------------
 #   Miscellaneous options
@@ -67,7 +65,6 @@ fi
 # default blocksize for ls, df, du
 # http://natelandau.com/my-mac-osx-bash_profile/
 export BLOCKSIZE=1k
-
 export CLICOLOR_FORCE=TRUE
 export CLICOLOR=1
 
@@ -79,7 +76,7 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-export GREP_OPTIONS='--color=auto'
+# export GREP_OPTIONS='--color=auto'
 export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
 export LESS=" -R"
 
