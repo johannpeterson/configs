@@ -51,6 +51,9 @@ export VIM_APP_DIR="/Applications/Development/"
 #   Miscellaneous options
 #   ------------------------------------------------
 
+autoload -U compinit
+compinit
+
 export HISTSIZE=2000
 setopt APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
