@@ -17,6 +17,10 @@
 (package-initialize)
 (require 'use-package)
 
+;; package exec-path-from-shell
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (add-to-list 'package-archives
@@ -104,6 +108,9 @@
  '(gud-gdb-command-name "gdb --annotate=1")
  '(large-file-warning-threshold nil)
  '(org-agenda-files (quote ("~/Dropbox/notes/reading/reading-log.org")))
+ '(package-selected-packages
+   (quote
+    (exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey)))
  '(scheme-program-name "mit-scheme"))
 
 (custom-set-faces
@@ -304,3 +311,6 @@ Assumes that the frame is only split into two."
   :URL: ${url}
   :END:
 ")
+
+;; temporary to override pubmed-pmid-to-bibtex from org-ref
+(load "~/jp-pubmed-to-bibtex.el")
