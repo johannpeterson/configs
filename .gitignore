@@ -13,17 +13,19 @@
 #   other config files
 !.bash_profile
 !.bashrc
-!.emacs
-!.ctags
+
 !.zshrc
 !.zshenv
 !.zprofile
 !.zlogin
 !.zlogout
-!.aliases
 !.zshprompt
 
+!.aliases
 !.lessfilter
+!.emacs
+!.ctags
+!jp-pubmed-to-bibtex.el
 
 !.vimrc
 !.gvimrc
