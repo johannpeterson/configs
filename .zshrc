@@ -18,38 +18,42 @@ else
 fi
 
 #   ------------------------------------------------
-#   PATH settings
+#   PATH settings - moved to .zshenv
 #   ------------------------------------------------
-# PATH="$HOME/Library/Haskell/bin":$PATH
 
-# PATH=$PATH:"$HOME/Library/Haskell/bin"
-# PATH=$PATH:"/usr/local/Cellar/vim/7.4.488/bin"
-# PATH=$PATH:"$HOME/Dropbox/todo"
-# # MacPorts Installer addition on 2014-03-28_at_23:08:07: adding an appropriate PATH variable for use with MacPorts.
-# PATH="/opt/local/bin":$PATH
-# PATH="/opt/local/sbin":$PATH
-# # Finished adapting your PATH environment variable for use with MacPorts.
-# PATH="$HOME/bin":$PATH
+# # PATH="$HOME/Library/Haskell/bin":$PATH
 
-PATH="$HOME/bin":"/usr/local/bin":"/opt/local/bin":"/opt/local/sbin":$PATH
-PATH="/Users/johann/Library/Python/3.7/bin":$PATH
+# # PATH=$PATH:"$HOME/Library/Haskell/bin"
+# # PATH=$PATH:"/usr/local/Cellar/vim/7.4.488/bin"
+# # PATH=$PATH:"$HOME/Dropbox/todo"
+# # # MacPorts Installer addition on 2014-03-28_at_23:08:07: adding an appropriate PATH variable for use with MacPorts.
+# # PATH="/opt/local/bin":$PATH
+# # PATH="/opt/local/sbin":$PATH
+# # # Finished adapting your PATH environment variable for use with MacPorts.
+# # PATH="$HOME/bin":$PATH
 
-# Setting PATH for Python 3.7
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+# PATH="$HOME/bin":"/usr/local/bin":"/opt/local/bin":"/opt/local/sbin":$PATH
+# PATH="/Users/johann/Library/Python/3.7/bin":$PATH
 
-# Setting PATH for Python 3.6
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-export PATH
+# # Setting PATH for Python 3.7
+# # The original version is saved in .bash_profile.pysave
+# PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
 
-# The orginal version is saved in .bash_profile.pysave
-# PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-export VIM_APP_DIR="/Applications/Development/"
+# # Setting PATH for Python 3.6
+# # The original version is saved in .bash_profile.pysave
+# PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+# export PATH
+
+# # The orginal version is saved in .bash_profile.pysave
+# # PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
+# export VIM_APP_DIR="/Applications/Development/"
 
 #   ------------------------------------------------
 #   Miscellaneous options
 #   ------------------------------------------------
+
+autoload -U compinit
+compinit
 
 export HISTSIZE=2000
 setopt APPEND_HISTORY
