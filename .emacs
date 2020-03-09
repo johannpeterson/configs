@@ -17,6 +17,9 @@
 (package-initialize)
 (require 'use-package)
 
+;; put all the ~ backup files in .emacs.d/backups/
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
 ;; package exec-path-from-shell
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
@@ -30,6 +33,11 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (menu-bar-mode 1) 
 (tool-bar-mode -1) ;; no toolbar
+
+(add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'latex-mode-hook 'linum-mode)
+(add-hook 'tex-mode-hook 'linum-mode)
+
 (if window-system
     (progn
       (scroll-bar-mode -1) 
@@ -46,6 +54,15 @@
 
 ;; (desktop-save-mode 1) ;; auto-save buffer state on close for a later time.
 ;; (setq abbrev-file-name "~/.emacs.d/abbrev_defs") ;; where to save auto-replace maps
+
+;; ---------------------------------------------------------
+;; LaTeX
+;; ---------------------------------------------------------
+
+(setq latex-run-command "pdflatex")
+
+; used for AucTeX?
+; (TeX-global-PDF-mode t)
 
 ;; ---------------------------------------------------------
 
