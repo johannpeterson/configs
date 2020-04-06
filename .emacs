@@ -207,7 +207,7 @@ Assumes that the frame is only split into two."
 ; There should be a subdirectory of the home directory,
 ; possibly a link, which contains all the org files.
 (setq jp-org-directory "~/org/")
-(setq jp-bibliography-file (concat jp-org-directory "references.bib"))
+(setq jp-bibliography-file (concat jp-org-directory "zotero.bib"))
 (setq jp-reading-log-file (concat jp-org-directory "reading.org"))
 
 (require 'org)
