@@ -94,9 +94,9 @@ if [ "$is_osx" ]; then
 else
     echo "Linux alias definitions"
     
-    alias ls='ls -Gp --color'
-    alias ll='ls -alpG --color'
-    alias lll='ls -alpG --color | less -R'
+    alias ls='ls -Ghp --color'
+    alias ll='ls -alphG --color'
+    alias lll='ls -alphG --color | less -R'
     alias l.='ls -d --color .*'
     alias l='ls -CF'
     alias la='ls -A'
