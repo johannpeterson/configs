@@ -1,101 +1,110 @@
-#!/bin/zsh
-#   ------------------------------------------------
-#   .zshrc
-#   johann peterson
-#   2/16/2020
-#   ------------------------------------------------
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-echo "executing $ZSH_ARGZERO"
+# Path to your oh-my-zsh installation.
+export ZSH="/home/johann/.oh-my-zsh"
 
-if [[ $OSTYPE == *linux* ]]; then
-    echo "os: Linux ($OSTYPE)"
-    is_linux=yes
-elif [[ $OSTYPE == *darwin* ]]; then
-    echo "os: OX-X ($OSTYPE)"
-    is_osx=yes
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="agnoster"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# If running in Terminator, chance the window title mechanism.
+if [ -n "${TERMINATOR_UUID+1}" ]; then
+    DISABLE_AUTO_TITLE="true"
+fi
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git zsh-dircolors-solarized sudo listbox)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# https://github.com/joel-porquet/zsh-dircolors-solarized
+# source ~/.zsh/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nano'
 else
-    echo "os: unknown ($OSTYPE)"
+  export EDITOR='nano'
 fi
 
-#   ------------------------------------------------
-#   PATH settings - moved to .zshenv
-#   ------------------------------------------------
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# # PATH="$HOME/Library/Haskell/bin":$PATH
-
-# # PATH=$PATH:"$HOME/Library/Haskell/bin"
-# # PATH=$PATH:"/usr/local/Cellar/vim/7.4.488/bin"
-# # PATH=$PATH:"$HOME/Dropbox/todo"
-# # # MacPorts Installer addition on 2014-03-28_at_23:08:07: adding an appropriate PATH variable for use with MacPorts.
-# # PATH="/opt/local/bin":$PATH
-# # PATH="/opt/local/sbin":$PATH
-# # # Finished adapting your PATH environment variable for use with MacPorts.
-# # PATH="$HOME/bin":$PATH
-
-# PATH="$HOME/bin":"/usr/local/bin":"/opt/local/bin":"/opt/local/sbin":$PATH
-# PATH="/Users/johann/Library/Python/3.7/bin":$PATH
-
-# # Setting PATH for Python 3.7
-# # The original version is saved in .bash_profile.pysave
-# PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
-
-# # Setting PATH for Python 3.6
-# # The original version is saved in .bash_profile.pysave
-# PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-# export PATH
-
-# # The orginal version is saved in .bash_profile.pysave
-# # PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-# export VIM_APP_DIR="/Applications/Development/"
-
-#   ------------------------------------------------
-#   Miscellaneous options
-#   ------------------------------------------------
-
-autoload -U compinit
-compinit
-
-export HISTSIZE=2000
-setopt APPEND_HISTORY
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_SPACE
-
-if [ "$is_osx" ]; then
-    export EDITOR=/usr/local/bin/vim
-else
-    export EDITOR=/usr/local/vim
-fi
-
-# default blocksize for ls, df, du
-# http://natelandau.com/my-mac-osx-bash_profile/
-export BLOCKSIZE=1k
-export CLICOLOR_FORCE=TRUE
-export CLICOLOR=1
-
-test -e ~/.dircolors && \
-    eval `dircolors -b ~/.dircolors`
-
-# enable color support of ls
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-fi
-
-# export GREP_OPTIONS='--color=auto'
-export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
-export LESS=" -R"
-
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
-fi
-
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-#   ------------------------------------------------
-#   Prompt
-#   ------------------------------------------------
-
-if [ -f ~/.zshprompt ]; then
-    . ~/.zshprompt
-else
-    PROMPT='%2~ %(!.#.>) '
-fi
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+zstyle ':completion:*' menu select
+source ~/.aliases
+eval `dircolors ~/.dir_colors/dircolors`
+precmd() { print -Pn "\e]0;$TITLE\a" }
+title() { export TITLE="$*" }
+source /home/johann/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

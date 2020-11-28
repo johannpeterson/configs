@@ -14,6 +14,8 @@
 
 (require 'package)
 (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (require 'use-package)
 
@@ -23,11 +25,9 @@
 ;; package exec-path-from-shell
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
-
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+
 (setq inhibit-splash-screen t)
 ;; only type `y` instead of `yes`
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -124,10 +124,12 @@
     ("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "52fec4eebee0219de9b619c67ff72721fa8e462663b31e6573632e3e590ca900" "382956945efdbe0e39e06d6d7253f3bf05bdd98d2d82f1105dbe33b261338a46" "e4e97731f52a5237f37ceb2423cb327778c7d3af7dc831788473d4a76bcc9760" "7e2b3b55e988a1828a11b706745c2d9b898879a0fb4fd9efdc5d86558c930b00" "6743c7238e9bd245782a680f92bee43261faf4997b66835c620fc64202b22663" "521e7ae4cbbbccc9f996d2292732b266afce23ef0de0e91236cc9629eb5f5a26" "76bb165fc9f375ec9f2308dabf1697e982f92ffd660a3cd933832da647df684d" "1838722404e4fe7d41f0bd2d3616a365b869bcf592d869343c2fdbed92a3491b" default)))
  '(gud-gdb-command-name "gdb --annotate=1")
  '(large-file-warning-threshold nil)
- '(org-agenda-files (quote ("~/Dropbox/notes/reading/reading-log.org")))
+ '(org-agenda-files
+   (quote
+    ("~/org/bioinformatics.org" "~/Dropbox/notes/reading/reading-log.org")))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey)))
+    (exec-path-from-shell web-mode use-package solarized-theme org-ref helm-bibtexkey)))
  '(scheme-program-name "mit-scheme"))
 
 (custom-set-faces
@@ -276,7 +278,7 @@ Assumes that the frame is only split into two."
 ;; org-ref
 
 (require 'org-ref)
-(require 'org-pdfview)
+;; (require 'org-pdfview)
 (require 'org-ref-pdf)
 (require 'doi-utils)
 (require 'org-ref-url-utils)
