@@ -70,7 +70,12 @@ fi
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-dircolors-solarized sudo listbox)
+plugins=(git
+         zsh-dircolors-solarized
+         sudo
+         listbox
+         clipboard
+        )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,3 +113,23 @@ eval `dircolors ~/.dir_colors/dircolors`
 precmd() { print -Pn "\e]0;$TITLE\a" }
 title() { export TITLE="$*" }
 source /home/johann/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/johann/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/johann/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/johann/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/johann/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# pyenv
+export PATH="/home/johann/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"

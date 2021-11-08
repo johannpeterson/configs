@@ -94,9 +94,9 @@ fi
 # export LSCOLORS=ExFxCxDxBxegedabagacad
 # export LS_COLORS=’di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90′
 # export LSCOLORS=gxfxcxdxbxexexabagacad
-# export LS_COLORS=gxfxcxdxbxexexabagacad
+# # export LS_COLORS=gxfxcxdxbxexexabagacad
 
-export GREP_OPTIONS='--color=auto'
+# export GREP_OPTIONS='--color=auto'
 export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
 export LESS=" -R"
 
