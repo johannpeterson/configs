@@ -1,4 +1,4 @@
-;; Text mode and Auto Fill mode
+; Text mode and Auto Fill mode
 ;; The next two lines put Emacs into Text mode
 ;; and Auto Fill mode, and are for writers who
 ;; want to start writing prose rather than code.
@@ -12,11 +12,37 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
 
+;; --------------------------------------------------------
+;; packages set-up stuff
+;; --------------------------------------------------------
+
 (require 'package)
-(add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+             (cons "melpa" "https://melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
+(package-refresh-contents)
+
+;; (defvar myPackages
+;;   '(
+;;     use-package
+;;     pyenv
+;;     elpy
+;;     web-mode
+;;     org
+;;     org-latex
+;;    )
+;;   )
+
+;; ;; Scans the list in myPackages
+;; ;; If the package listed is not already installed, install it
+;; (mapc #'(lambda (package)
+;;           (unless (package-installed-p package)
+;;             (package-install package)))
+;;       myPackages)
+
+; https://github.com/jwiegley/use-package
 (require 'use-package)
 
 ;; put all the ~ backup files in .emacs.d/backups/
@@ -129,7 +155,7 @@
     ("~/org/bioinformatics.org" "~/Dropbox/notes/reading/reading-log.org")))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell web-mode use-package solarized-theme org-ref helm-bibtexkey)))
+    (haskell-mode elpy csv-mode exec-path-from-shell web-mode use-package solarized-theme org-ref helm-bibtexkey)))
  '(scheme-program-name "mit-scheme"))
 
 (custom-set-faces
@@ -333,3 +359,34 @@ Assumes that the frame is only split into two."
 
 ;; temporary to override pubmed-pmid-to-bibtex from org-ref
 (load "~/jp-pubmed-to-bibtex.el")
+
+;; ---------------------------------------------------------
+;; python
+;; ---------------------------------------------------------
+
+;; https://realpython.com/emacs-the-best-python-editor/
+;; https://jonathanabennett.github.io/blog/2019/06/20/python-and-emacs-pt.-1/
+
+;; (require 'elpy)
+;; (elpy-enable)
+(use-package pyenv-mode
+  :init
+  (add-to-list 'exec-path "~/.pyenv/shims")
+  (setenv "WORKON_HOME" "~/.pyenv/versions/")
+  :config
+  (pyenv-mode)
+  :bind
+  ("C-x p e" . pyenv-activate-current-project))
+
+(use-package elpy
+  :init
+  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+  :custom
+  (elpy-rpc-backend "jedi"))
+
+(use-package python
+  :ensure nil
+  :mode ("\\.py" . python-mode)
+  :config
+  (setq python-indent-offset 4)
+  (elpy-enable))
