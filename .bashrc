@@ -7,6 +7,8 @@
 
 echo "executing $BASH_SOURCE"
 
+is_linux=no
+is_osx=no
 if [[ $OSTYPE == *linux* ]]; then
     echo "os: Linux"
     is_linux=yes
