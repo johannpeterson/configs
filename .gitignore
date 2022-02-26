@@ -44,3 +44,4 @@
 .vim/backups/
 .vim/.netrwhist
 *.swp
+.Rproj.user

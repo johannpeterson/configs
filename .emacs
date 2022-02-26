@@ -35,8 +35,6 @@
 (tool-bar-mode -1) ;; no toolbar
 
 (add-hook 'prog-mode-hook 'linum-mode)
-(add-hook 'latex-mode-hook 'linum-mode)
-(add-hook 'tex-mode-hook 'linum-mode)
 
 (if window-system
     (progn
@@ -60,6 +58,13 @@
 ;; ---------------------------------------------------------
 
 (setq latex-run-command "pdflatex")
+
+(add-hook 'latex-mode-hook 'linum-mode)
+(add-hook 'latex-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'tex-mode-hook 'linum-mode)
+
+(setq reftex-plug-into-auctex t)
 
 ; used for AucTeX?
 ; (TeX-global-PDF-mode t)
@@ -127,7 +132,7 @@
  '(org-agenda-files (quote ("~/Dropbox/notes/reading/reading-log.org")))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey)))
+    (haskell-mode auctex exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey)))
  '(scheme-program-name "mit-scheme"))
 
 (custom-set-faces
