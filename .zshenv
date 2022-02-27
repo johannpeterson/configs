@@ -16,5 +16,5 @@
     # ":/Applications/Postgres.app/Contents/Versions/latest/bin" \
     # ":/Users/johann/Library/Python/3.7/bin" \
     # ":/Library/Frameworks/Python.framework/Versions/3.7/bin"
-# export PATH
+export PATH=$PATH":$HOME/.local/bin"
 export VIM_APP_DIR="/Applications/Development/"
