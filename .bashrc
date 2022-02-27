@@ -7,6 +7,8 @@
 
 echo "executing $BASH_SOURCE"
 
+is_linux=no
+is_osx=no
 if [[ $OSTYPE == *linux* ]]; then
     echo "os: Linux"
     is_linux=yes
@@ -94,9 +96,9 @@ fi
 # export LSCOLORS=ExFxCxDxBxegedabagacad
 # export LS_COLORS=’di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90′
 # export LSCOLORS=gxfxcxdxbxexexabagacad
-# export LS_COLORS=gxfxcxdxbxexexabagacad
+# # export LS_COLORS=gxfxcxdxbxexexabagacad
 
-export GREP_OPTIONS='--color=auto'
+# export GREP_OPTIONS='--color=auto'
 export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
 export LESS=" -R"
 
@@ -379,3 +381,19 @@ export PATH
 # The original version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 export PATH
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/johann/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/johann/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/johann/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/johann/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

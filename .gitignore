@@ -14,12 +14,14 @@
 !.bash_profile
 !.bashrc
 
+# zsh
 !.zshrc
 !.zshenv
 !.zprofile
 !.zlogin
 !.zlogout
 !.zshprompt
+!.zsh/**
 
 !.aliases
 !.lessfilter
