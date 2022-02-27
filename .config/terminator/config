@@ -1,80 +1,199 @@
 [global_config]
-  always_split_with_profile = True
-  title_transmit_bg_color = "#ffffff"
   focus = mouse
   title_transmit_fg_color = "#000000"
+  title_transmit_bg_color = "#ffffff"
+  always_split_with_profile = True
 [keybindings]
 [profiles]
   [[default]]
-    use_system_font = False
-    login_shell = True
-    scrollback_lines = 2500
-    background_image = None
-    foreground_color = "#ffffff"
-    font = Anonymous Pro 11
-  [[Solarized Dark]]
-    background_image = None
-    use_system_font = False
-    scrollback_lines = 2500
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    foreground_color = "#839496"
-    font = Anonymous Pro 11
+    allow_bold = False
     background_color = "#002b36"
-  [[Solarized Light]]
+    cursor_color = "#ffffff"
+    font = Anonymous Pro 14
+    foreground_color = "#839496"
+    scrollback_lines = 2500
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    font = Anonymous Pro 11
-    background_color = "#fdf6e3"
+    login_shell = True
     use_system_font = False
+  [[Solarized Dark]]
+    background_color = "#002b36"
+    font = Anonymous Pro 11
+    foreground_color = "#839496"
+    scrollback_lines = 2500
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
+  [[Solarized Light]]
+    background_color = "#fdf6e3"
+    cursor_color = "#657b83"
+    font = Anonymous Pro 11
     foreground_color = "#657b83"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
+  [[transparent]]
+    background_color = "#ffffff"
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = Anonymous Pro 16
+    foreground_color = "#000000"
+    use_system_font = False
 [layouts]
   [[default]]
     [[[child1]]]
       type = Terminal
       parent = window0
+      profile = default
+      directory = ""
     [[[window0]]]
       type = Window
       parent = ""
+  [[New Layout]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 214:37
+      maximised = False
+      fullscreen = False
+      size = 1217, 648
+      title = johann@bigbox: ~/.config/terminator
+      last_active_term = aea6c731-fa0f-4740-a39c-f9d790bec7be
+      last_active_window = True
+    [[[terminal1]]]
+      type = Terminal
+      parent = child0
+      order = 0
+      profile = Solarized Dark
+      uuid = aea6c731-fa0f-4740-a39c-f9d790bec7be
   [[2x2]]
     [[[child0]]]
-      position = 71:24
       type = Window
-      order = 0
       parent = ""
-      size = 1170, 1388
+      order = 0
+      position = 214:37
+      maximised = False
+      fullscreen = False
+      size = 1489, 865
+      title = johann@bigbox: ~/.config/terminator
+      last_active_term = d3d7fce3-f1de-41a1-9468-5845d2ca5ba8
+      last_active_window = True
     [[[child1]]]
-      position = 713
       type = VPaned
-      order = 0
       parent = child0
+      order = 0
+      position = 423
+      ratio = 0.5
     [[[child2]]]
-      position = 585
       type = HPaned
+      parent = child1
       order = 0
-      parent = child1
-    [[[child5]]]
-      position = 584
-      type = HPaned
-      order = 1
-      parent = child1
+      position = 734
+      ratio = 0.5
     [[[terminal3]]]
-      profile = Solarized Dark
-      group = 2x2
       type = Terminal
-      order = 0
       parent = child2
+      order = 0
+      profile = Solarized Dark
+      uuid = aea6c731-fa0f-4740-a39c-f9d790bec7be
     [[[terminal4]]]
-      profile = Solarized Dark
       type = Terminal
-      order = 1
       parent = child2
-    [[[terminal7]]]
-      profile = Solarized Dark
-      type = Terminal
       order = 1
-      parent = child5
-    [[[terminal6]]]
       profile = Solarized Dark
+      uuid = 22a33bc6-72b8-481e-b0ce-dae329ca9b7b
+    [[[child5]]]
+      type = HPaned
+      parent = child1
+      order = 1
+      position = 734
+      ratio = 0.5
+      use_custom_command = True
+      custom_command = glances
+    [[[terminal6]]]
       type = Terminal
-      order = 0
       parent = child5
+      order = 0
+      profile = Solarized Dark
+      uuid = d3d7fce3-f1de-41a1-9468-5845d2ca5ba8
+    [[[terminal7]]]
+      type = Terminal
+      parent = child5
+      order = 1
+      profile = Solarized Dark
+      uuid = 27fd362c-61cf-4ce1-8de7-3bdee03d0342
+  [[auto start]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 2244:506
+      maximised = False
+      fullscreen = False
+      size = 1389, 924
+      title = %15<..<%~%<<
+      last_active_term = 94bb8810-1164-47eb-91f2-e6d0080a9a18
+      last_active_window = False
+    [[[terminal1]]]
+      type = Terminal
+      parent = child0
+      order = 0
+      profile = default
+      uuid = 94bb8810-1164-47eb-91f2-e6d0080a9a18
+    [[[child2]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 0:487
+      maximised = True
+      fullscreen = False
+      size = 1920, 1043
+      title = $CMD
+      last_active_term = 0621478b-5111-4543-8a7e-dffd63b13abb
+      last_active_window = True
+    [[[child3]]]
+      type = VPaned
+      parent = child2
+      order = 0
+      position = 518
+      ratio = 0.49903660886319845
+    [[[child4]]]
+      type = HPaned
+      parent = child3
+      order = 0
+      position = 960
+      ratio = 0.5013054830287206
+    [[[terminal5]]]
+      type = Terminal
+      parent = child4
+      order = 0
+      profile = default
+      uuid = bda720a9-b542-4a61-b4e2-cc05ab367943
+    [[[terminal6]]]
+      type = Terminal
+      parent = child4
+      order = 1
+      profile = default
+      uuid = 0621478b-5111-4543-8a7e-dffd63b13abb
+    [[[terminal7]]]
+      type = Terminal
+      parent = child3
+      order = 1
+      profile = default
+      uuid = d9876772-0316-466a-a3dd-b688fda2cb2a
+    [[[child8]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 2244:506
+      maximised = False
+      fullscreen = False
+      size = 1389, 924
+      title = Window Title
+      last_active_term = 94bb8810-1164-47eb-91f2-e6d0080a9a18
+      last_active_window = False
+    [[[terminal9]]]
+      type = Terminal
+      parent = child8
+      order = 0
+      profile = default
+      uuid = 94bb8810-1164-47eb-91f2-e6d0080a9a18
 [plugins]
