@@ -59,6 +59,7 @@ export HISTSIZE=2000
 setopt APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE
+setopt AUTOPUSHD
 
 if [ "$is_osx" ]; then
     export EDITOR=/usr/local/bin/vim
