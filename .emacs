@@ -225,12 +225,21 @@ Assumes that the frame is only split into two."
 (global-set-key (kbd "C-x 5") 'toggle-frame-split)
 
 ;; ---------------------------------------------------------
+;; Haskell
+;; https://wiki.haskell.org/Emacs/Inferior_Haskell_processes
 
+(require 'haskell-interactive-mode)
+(require 'haskell-process)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (put 'downcase-region 'disabled nil)
+(custom-set-variables
+   '(haskell-process-suggest-remove-import-lines t)
+   '(haskell-process-auto-import-loaded-modules t)
+   '(haskell-process-log t))
 
 ;; ---------------------------------------------------------
 ;; org-mode & LaTeX
