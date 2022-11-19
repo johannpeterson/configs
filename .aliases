@@ -80,7 +80,9 @@ if [ "$is_osx" ]; then
     alias l='ls -CF'
     alias la='ls -A'
     alias dircolors=gdircolors
-    
+
+    alias ghci='TERM=dumb;ghci'
+
     # Add an "alert" for long running commands.  Use like so:
     #   sleep 10; alert
     alert () {
