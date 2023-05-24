@@ -82,7 +82,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # export GREP_OPTIONS='--color=auto'
-export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
+# export LESSOPEN="| source-highlight -f esc-solarized --style-file=esc-solarized.style -i %s -o STDOUT"
+# export LESSOPEN="| src-hilite-lesspipe.sh %s"
+# This uses the revised lessipipe script: https://gist.github.com/jaygooby/9494858d3d481a64819d227a9318f6c7
+export LESSOPEN="| src-hilite-lesspipe-new.sh %s"
 export LESS=" -R"
 
 if [ -f ~/.aliases ]; then
@@ -116,3 +119,11 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/johann/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/johann/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/johann/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/johann/google-cloud-sdk/completion.zsh.inc'; fi
+
+[ -f "/Users/johann/.ghcup/env" ] && source "/Users/johann/.ghcup/env" # ghcup-env
