@@ -1,14 +1,24 @@
-; Text mode and Auto Fill mode
+;;; .emacs -- Johann Peterson's emacs init file
+
+;; Author: Johann Peterson <johann.peterson@gmail.com>
+
+;;; Commentary:
+
+;;; Code
+                                        ;
+;; Text mode and Auto Fill mode
+
 ;; The next two lines put Emacs into Text mode
 ;; and Auto Fill mode, and are for writers who
 ;; want to start writing prose rather than code.
+
 (setq-default major-mode 'text-mode)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;;; General emacs configuration stuff
-; use command as Meta
-(setq mac-option-key-is-meta nil)
-(setq mac-command-key-is-meta t)
+;; General emacs configuration stuff
+
+(setq mac-option-key-is-meta nil) ; use command as Meta
+(setq mac-command-key-is-meta t)  ; use command as Meta
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
 
@@ -93,8 +103,8 @@
 
 (setq reftex-plug-into-auctex t)
 
-; used for AucTeX?
-; (TeX-global-PDF-mode t)
+;; used for AucTeX?
+;; (TeX-global-PDF-mode t)
 
 ;; ---------------------------------------------------------
 
@@ -121,7 +131,7 @@
 
 ;; web-mode
 ;; http://web-mode.org
-;;
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -400,6 +410,10 @@ Assumes that the frame is only split into two."
   (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
   :custom
   (elpy-rpc-backend "jedi"))
+
+(when (load "flycheck" t t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 (use-package python
   :ensure nil
