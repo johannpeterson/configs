@@ -409,10 +409,11 @@ Assumes that the frame is only split into two."
 )
 
 (use-package elpy
-  :init
-  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-  :custom
-  (elpy-rpc-backend "jedi"))
+  :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+         (setq python-shell-interpreter "python"
+               python-shell-interpreter-args "-i")
+  :custom (elpy-rpc-backend "jedi")
+)
 
 (when (load "flycheck" t t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
