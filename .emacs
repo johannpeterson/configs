@@ -402,8 +402,11 @@ Assumes that the frame is only split into two."
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
-(add-hook 'after-init-hook #'global-flycheck-mode)
+  :init (global-flycheck-mode)
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (setq-default flycheck-flake8-maximum-line-length 99)
+)
 
 (use-package elpy
   :init
