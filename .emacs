@@ -171,7 +171,9 @@
  '(org-agenda-files
    '("~/org/bioinformatics.org" "~/Dropbox/notes/reading/reading-log.org"))
  '(package-selected-packages
-   '(flycheck elpygen python-mode elpy haskell-mode auctex exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey))
+   '(vterm julia-repl julia-mode flycheck elpygen python-mode elpy haskell-mode auctex exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey))
+ '(python-shell-completion-native-disabled-interpreters '("pypy" "ipython" "python3"))
+ '(python-shell-interpreter "python3")
  '(scheme-program-name "mit-scheme"))
 
 (custom-set-faces
@@ -383,6 +385,21 @@ Assumes that the frame is only split into two."
 (load "~/jp-pubmed-to-bibtex.el")
 
 ;; ---------------------------------------------------------
+;; programming
+;; ---------------------------------------------------------
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode)
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (setq-default flycheck-flake8-maximum-line-length 99)
+)
+
+(use-package vterm
+  :ensure t)
+
+;; ---------------------------------------------------------
 ;; python
 ;; ---------------------------------------------------------
 
@@ -400,18 +417,12 @@ Assumes that the frame is only split into two."
 ;;  :bind
 ;;  ("C-x p e" . pyenv-activate-current-project))
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  (setq-default flycheck-flake8-maximum-line-length 99)
-)
-
 (use-package elpy
-  :init (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-         (setq python-shell-interpreter "python"
-               python-shell-interpreter-args "-i")
+  :init
+  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+  (setq python-shell-interpreter "python3"
+        python-shell-interpreter-args "-i")
+  (setenv "WORKON_HOME" "/Users/johann/opt/anaconda3/envs")
   :custom (elpy-rpc-backend "jedi")
 )
 
@@ -425,5 +436,41 @@ Assumes that the frame is only split into two."
   :config
   (setq python-indent-offset 4)
   (elpy-enable))
+
+;; ---------------------------------------------------------
+;; julia
+;; ---------------------------------------------------------
+
+;; https://hershsingh.net/blog/emacs-julia/
+;; https://github.com/tpapp/julia-repl
+
+(defun my/julia-repl-send-cell() 
+  ;; "Send the current julia cell (delimited by ###) to the julia shell"
+  (interactive)
+  (save-excursion (setq cell-begin (if (re-search-backward "^###" nil t) (point) (point-min))))
+  (save-excursion (setq cell-end (if (re-search-forward "^###" nil t) (point) (point-max))))
+  (set-mark cell-begin)
+  (goto-char cell-end)
+  (julia-repl-send-region-or-line)
+  (next-line))
+
+(use-package julia-mode
+  :ensure t)
+
+(use-package julia-repl
+  :ensure t
+  :hook (julia-mode . julia-repl-mode)
+
+  :init
+  (setenv "JULIA_NUM_THREADS" "8")
+
+  :config
+  ;; Set the terminal backend
+  (julia-repl-set-terminal-backend 'vterm)
+  
+  ;; Keybindings for quickly sending code to the REPL
+  (define-key julia-repl-mode-map (kbd "<C-RET>") 'my/julia-repl-send-cell)
+  (define-key julia-repl-mode-map (kbd "<M-RET>") 'julia-repl-send-line)
+  (define-key julia-repl-mode-map (kbd "<S-return>") 'julia-repl-send-buffer))
 
 ;;; .emacs ends here
