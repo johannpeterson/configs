@@ -17,4 +17,9 @@
     # ":/Users/johann/Library/Python/3.7/bin" \
     # ":/Library/Frameworks/Python.framework/Versions/3.7/bin"
 export PATH=$PATH":$HOME/.local/bin"
+
+# I could not get the directory with a space (/Applications/Racket 8.9/bin)
+# to work in the PATH.
+export PATH="$PATH:/Applications/Racket/bin"
+
 export VIM_APP_DIR="/Applications/Development/"
