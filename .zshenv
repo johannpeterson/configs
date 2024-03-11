@@ -23,3 +23,6 @@ export PATH=$PATH":$HOME/.local/bin"
 export PATH="$PATH:/Applications/Racket/bin"
 
 export VIM_APP_DIR="/Applications/Development/"
+. "$HOME/.cargo/env"
+
+export OPENAI_API_KEY=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
