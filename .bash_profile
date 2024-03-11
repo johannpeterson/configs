@@ -19,3 +19,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 export RSTUDIO_WHICH_R=/usr/bin/R
+. "$HOME/.cargo/env"

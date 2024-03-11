@@ -162,7 +162,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "52fec4eebee0219de9b619c67ff72721fa8e462663b31e6573632e3e590ca900" "382956945efdbe0e39e06d6d7253f3bf05bdd98d2d82f1105dbe33b261338a46" "e4e97731f52a5237f37ceb2423cb327778c7d3af7dc831788473d4a76bcc9760" "7e2b3b55e988a1828a11b706745c2d9b898879a0fb4fd9efdc5d86558c930b00" "6743c7238e9bd245782a680f92bee43261faf4997b66835c620fc64202b22663" "521e7ae4cbbbccc9f996d2292732b266afce23ef0de0e91236cc9629eb5f5a26" "76bb165fc9f375ec9f2308dabf1697e982f92ffd660a3cd933832da647df684d" "1838722404e4fe7d41f0bd2d3616a365b869bcf592d869343c2fdbed92a3491b" default))
+   '("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "52fec4eebee0219de9b619c67ff72721fa8e462663b31e6573632e3e590ca900" "382956945efdbe0e39e06d6d7253f3bf05bdd98d2d82f1105dbe33b261338a46" "e4e97731f52a5237f37ceb2423cb327778c7d3af7dc831788473d4a76bcc9760" "7e2b3b55e988a1828a11b706745c2d9b898879a0fb4fd9efdc5d86558c930b00" "6743c7238e9bd245782a680f92bee43261faf4997b66835c620fc64202b22663" "521e7ae4cbbbccc9f996d2292732b266afce23ef0de0e91236cc9629eb5f5a26" "76bb165fc9f375ec9f2308dabf1697e982f92ffd660a3cd933832da647df684d" "1838722404e4fe7d41f0bd2d3616a365b869bcf592d869343c2fdbed92a3491b" default))
  '(gud-gdb-command-name "gdb --annotate=1")
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
@@ -171,7 +171,7 @@
  '(org-agenda-files
    '("~/org/bioinformatics.org" "~/Dropbox/notes/reading/reading-log.org"))
  '(package-selected-packages
-   '(vterm julia-repl julia-mode flycheck elpygen python-mode elpy haskell-mode auctex exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey))
+   '(rust-mode vterm julia-repl julia-mode flycheck elpygen python-mode elpy haskell-mode auctex exec-path-from-shell web-mode use-package solarized-theme org-ref org-pdfview helm-bibtexkey))
  '(python-shell-completion-native-disabled-interpreters '("pypy" "ipython" "python3"))
  '(python-shell-interpreter "python3")
  '(scheme-program-name "mit-scheme"))
@@ -388,13 +388,13 @@ Assumes that the frame is only split into two."
 ;; programming
 ;; ---------------------------------------------------------
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  (setq-default flycheck-flake8-maximum-line-length 99)
-)
+;; (use-package flycheck
+;;   :ensure t
+;;   :init (global-flycheck-mode)
+;;   :config
+;;   (add-hook 'after-init-hook #'global-flycheck-mode)
+;;   (setq-default flycheck-flake8-maximum-line-length 99)
+;; )
 
 (use-package vterm
   :ensure t)
@@ -426,9 +426,9 @@ Assumes that the frame is only split into two."
   :custom (elpy-rpc-backend "jedi")
 )
 
-(when (load "flycheck" t t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; (when (load "flycheck" t t)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
 (use-package python
   :ensure nil
@@ -473,4 +473,11 @@ Assumes that the frame is only split into two."
   (define-key julia-repl-mode-map (kbd "<M-RET>") 'julia-repl-send-line)
   (define-key julia-repl-mode-map (kbd "<S-return>") 'julia-repl-send-buffer))
 
+;; ---------------------------------------------------------
+;; rust
+;; ---------------------------------------------------------
+
+(require 'rust-mode)
+
 ;;; .emacs ends here
+
