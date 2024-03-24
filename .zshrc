@@ -14,7 +14,7 @@ elif [[ $OSTYPE == *darwin* ]]; then
     echo "os: OX-X ($OSTYPE)"
     is_osx=yes
 else
-    echo "os: unknown ($OSTYPE)"
+   echo "os: unknown ($OSTYPE)"
 fi
 
 #   ------------------------------------------------
@@ -62,9 +62,9 @@ setopt HIST_IGNORE_SPACE
 setopt AUTOPUSHD
 
 if [ "$is_osx" ]; then
-    export EDITOR=/usr/local/bin/vim
+    export EDITOR=emacs -nw
 else
-    export EDITOR=/usr/local/vim
+    export EDITOR=emacs -nw
 fi
 
 # default blocksize for ls, df, du
