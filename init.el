@@ -97,6 +97,7 @@
 (delete-selection-mode 1)                 ; Selected text will be overwritten when you start typing
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)    ; Delete trailing whitespace on save
+(setq vc-follow-symlinks t)
 
 ;;; *** backups & autosaves:
 
@@ -274,6 +275,9 @@
 
 (use-package lsp-mode
   :ensure
+  :hook ((c-mode c++-mode js-mode python-mode rust-mode julia-mode web-mode)
+         . lsp)
+
   :commands lsp
   ;; :custom
   ;; ;; what to use when checking on-save. "check" is default, I prefer clippy
@@ -381,8 +385,8 @@
 ;;; *** prog-mode:
 
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-
 (add-hook 'prog-mode-hook 'global-company-mode)
+(add-hook 'compilation-mode-hook 'visual-line-mode)
 
 ;;; *** text mode:
 
@@ -480,6 +484,16 @@
   (define-key julia-repl-mode-map (kbd "<C-RET>") 'my/julia-repl-send-cell)
   (define-key julia-repl-mode-map (kbd "<M-RET>") 'julia-repl-send-line)
   (define-key julia-repl-mode-map (kbd "<S-return>") 'julia-repl-send-buffer))
+
+;;; *** python:
+
+(use-package python-mode
+  :hook ((python-mode . (lambda ()
+                          (when (require 'lsp-python nil t)
+                            (lsp))))))
+
+(use-package blacken
+  :hook (python-mode . blacken-mode))
 
 ;;; * custom:
 (setq custom-file my/custom)
