@@ -9,6 +9,7 @@
 ;; https://sanemacs.com/sanemacs.el
 ;; https://lupan.pl/dotemacs/
 ;; https://github.com/radian-software/radian?tab=readme-ov-file
+;; https://github.com/patrickt/emacs
 
 ;; https://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
 ;; https://github.com/jwiegley/use-package
@@ -98,6 +99,9 @@
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)    ; Delete trailing whitespace on save
 (setq vc-follow-symlinks t)
+
+(set-charset-priority 'unicode)
+(prefer-coding-system 'utf-8-unix)
 
 ;;; *** backups & autosaves:
 
