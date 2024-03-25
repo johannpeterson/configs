@@ -57,6 +57,7 @@
 ;;; * Code:
 ;;; Code:
 
+;;; ========================================================
 ;;; ** performance:
 ;;; Turn off garbage collection while loading this file,
 ;;; and while in minibuffer.
@@ -83,6 +84,7 @@
 
 (setq read-process-output-max (* 3 my-1mb))  ;; lsp-mode's performance suggest
 
+;;; ========================================================
 ;;; ** constants:
 (defconst my/init (eval-when-compile (expand-file-name "init.el" user-emacs-directory)))
 (defconst my/custom (eval-when-compile (expand-file-name "custom.el" user-emacs-directory)))
@@ -91,6 +93,7 @@
 (setq user-full-name "Johann Peterson"
       user-mail-address "johann.peterson@gmail.com")
 
+;;; ========================================================
 ;;; ** appearance & behavior:
 (setq inhibit-splash-screen t)
 (setq visible-bell t)
@@ -166,6 +169,7 @@
          (text-scale-set 0))
        (bind-key "M-0" 'my/text-scale-reset)))
 
+;;; ========================================================
 ;;; ** Editing emacs configuration:
 ;;; C-i to edit the configuration file
 ;;; C-r to reload the configuration file
@@ -184,10 +188,12 @@
 
 (global-set-key (kbd "C-c r") 'my/reload-config)
 
+;;; ========================================================
 ;;; ** useful functions:
 
 (defalias 'qrr 'query-replace-regexp)
 
+;;; ========================================================
 ;;; ** packages:
 ;;; *** straight:
 (defvar bootstrap-version)
@@ -417,6 +423,7 @@
 
 (use-package magit)
 
+;;; ========================================================
 ;;; ** modes:
 
 ;;; *** prog-mode:
@@ -425,21 +432,25 @@
 (add-hook 'prog-mode-hook 'global-company-mode)
 (add-hook 'compilation-mode-hook 'visual-line-mode)
 
+;;; ========================================================
 ;;; *** text mode:
 
 (setq-default major-mode 'text-mode)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;;; ========================================================
 ;;; *** lisp:
 ;;; https://lispcookbook.github.io/cl-cookbook/emacs-ide.html
 
 (setq inferior-lisp-program (executable-find "sbcl"))
 
+;;; ========================================================
 ;;; *** haskell:
 
 (use-package lsp-haskell
   :hook (haskell-mode . #'lsp-deferred))
 
+;;; ========================================================
 ;;; *** rust:
 ;;; https://robert.kra.hn/posts/rust-emacs-setup/
 ;;; https://github.com/rust-lang/rust-mode
@@ -503,6 +514,7 @@
 ;;            ;; :lldbmipath "path/to/lldb-mi"
 ;;            ))))
 
+;;; ========================================================
 ;;; *** julia:
 ;;; https://hershsingh.net/blog/emacs-julia/
 
@@ -540,6 +552,7 @@
   (julia-repl-send-region-or-line)
   (next-line))
 
+;;; ========================================================
 ;;; *** python:
 
 (use-package python-mode
@@ -553,6 +566,7 @@
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
 
+;;; ========================================================
 ;;; *** LaTeX:
 ;;; https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/
 
@@ -573,6 +587,7 @@
 (add-to-list 'TeX-view-program-selection
              '(output-pdf "PDF Tools"))
 
+;;; ========================================================
 ;;; * custom:
 (setq custom-file my/custom)
 (load custom-file t)
