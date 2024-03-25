@@ -5,6 +5,13 @@ Clone into a `configs` subdirectory of home, and link to files in
 ~/configs.  E.g.:
 
 ```bash
+cd ~
+git clone https://github.com/johannpeterson/configs.git
+```
+
+then
+
+```bash
 ln -s ~/configs/init.el ~/.emacs.d/init.el
 ln -s ~/configs/.zshrc ~/.zshrc
 ln -s ~/configs/.zshenv ~/.zshenv
