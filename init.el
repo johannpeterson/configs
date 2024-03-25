@@ -1,9 +1,11 @@
+
 ;; init.el -- Johann Peterson's emacs init file
 
 ;; Author: Johann Peterson <johann.peterson@gmail.com>
 
 ;;; Commentary:
-;;; * sources:
+;;; * introduction:
+;;; ** sources:
 ;; https://gitlab.com/shilling.jake/emacsd/-/blob/master/config.org?ref_type=heads
 ;; https://github.com/KaratasFurkan/.emacs.d
 ;; https://sanemacs.com/sanemacs.el
@@ -15,7 +17,7 @@
 ;; https://github.com/jwiegley/use-package
 ;; https://github.com/radian-software/straight.el
 
-;;; * keybindings:
+;;; ** keybindings:
 ;;; Key bindings defined in this init.el
 ;;; <f5>,<f6>   Solarized dark, light
 ;;; M-+         increase text size
@@ -45,12 +47,19 @@
 ;;; <C-RET>     my/julia-repl-send-cell
 ;;; <M-RET>     julia-repl-send-line
 ;;; <S-return>  julia-repl-send-buffer
+;;; M-z         unbound
+
+;;; ** todo:
+;;; - [ ] use doom? https://github.com/doomemacs/doomemacs
+;;; - [ ] fix haskell LSP
+;;; - [ ] test julia mode
 
 ;;; * Code:
 ;;; Code:
-;;; ** general emacs setup:
 
 ;;; ** performance:
+;;; Turn off garbage collection while loading this file,
+;;; and while in minibuffer.
 ;;; https://github.com/KaratasFurkan/.emacs.d#performance-optimization
 
 (setq gc-cons-threshold most-positive-fixnum)
@@ -85,10 +94,10 @@
 ;;; ** appearance & behavior:
 (setq inhibit-splash-screen t)
 (setq visible-bell t)
-(setq show-trailing-whitespace t)
+(unbind-key "C-z")                        ; stop accidentally suspending
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'scroll-left 'disabled nil)
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)       ; use spaces, not tabs
 (setq fill-column 80)
 (global-hl-line-mode 1)
 (show-paren-mode 1)
@@ -96,8 +105,12 @@
 (column-number-mode t)
 (setq linum-format "%4d ")                ; Line number format
 (delete-selection-mode 1)                 ; Selected text will be overwritten when you start typing
+
+(setq show-trailing-whitespace t)
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)    ; Delete trailing whitespace on save
+
+;; don't ask before following links to git-controlled files:
 (setq vc-follow-symlinks t)
 
 (set-charset-priority 'unicode)
@@ -131,21 +144,6 @@
     (tool-bar-mode -1)
   ))
 
-;;; *** display theme:
-;; (require-theme 'solarized-theme)
-
-;;; https://github.com/protesilaos/modus-themes
-;;(require-theme 'modus-themes)
-
-;;; All customizations here
-;; (setq modus-themes-bold-constructs t
-;;       modus-themes-italic-constructs t)
-
-;;; Load the theme of choice (built-in themes are always "safe" so they
-;;; do not need the `no-require' argument of `load-theme').
-;; (load-theme 'modus-vivendi)
-
-;; (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 
 ;;; *** Mac keyboard changes:
 ;; (setq mac-option-key-is-meta nil) ; use command as Meta
@@ -212,7 +210,7 @@
 (setq package-enable-at-startup nil)
 (setq straight-use-package-by-default t)
 
-;;; *** specific packages:
+;;; *** solarized theme:
 
 (use-package solarized-theme
   :init (load-theme 'solarized-dark t)
@@ -228,34 +226,57 @@
                   )
 )
 
+;;; *** modus themes:
+
+;;; https://github.com/protesilaos/modus-themes
+;;; (require-theme 'modus-themes)
+
+;;; All customizations here
+;; (setq modus-themes-bold-constructs t
+;;       modus-themes-italic-constructs t)
+
+;;; Load the theme of choice (built-in themes are always "safe" so they
+;;; do not need the `no-require' argument of `load-theme').
+;; (load-theme 'modus-vivendi)
+
+;; (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+
+;;; *** diminish:
 ;;; Limit the mode labels dispolayed in the mode line.
 (use-package diminish)
 
+;;; *** vterm:
 (use-package vterm)
 
+;;; exec-path-from-shell:
 ;;; Gets the PATH from the shell.
 (use-package exec-path-from-shell
   :ensure
   :init (exec-path-from-shell-initialize))
 
+;;; ansi-color:
 ;;; This is necessary to clean up the ANSI terminal codes in the compilation mode buffers.
 (use-package ansi-color
     :hook (compilation-filter . ansi-color-compilation-filter))
 
+;;; rainbow-delimiter:
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
+;;; expand-region:
 (use-package expand-region
   :bind
   (("C-=" . er/expand-region)))
 
+;;; smart-mode-line:
 (use-package smart-mode-line
   :config
   (progn
    (setq sml/no-confirm-load-theme t)
    (sml/setup)))
 
+;;; vertico:
 ;;; vertico - selection pop-up
 ;;; https://github.com/minad/vertico/wiki/Migrating-from-Selectrum-to-Vertico
 (use-package vertico
@@ -263,6 +284,7 @@
   :init
   (vertico-mode))
 
+;;; marginalia:
 ;;; Enable rich annotations using the Marginalia package
 ;;; https://github.com/minad/marginalia
 (use-package marginalia
@@ -277,6 +299,8 @@
   ;; package.
   (marginalia-mode))
 
+;;; *** lsp & other IDE niceties:
+;;; lsp-mode
 (use-package lsp-mode
   :ensure
   :hook ((c-mode c++-mode js-mode python-mode rust-mode julia-mode web-mode)
@@ -301,6 +325,7 @@
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
+;;; lsp-ui
 ;;; https://emacs-lsp.github.io/lsp-ui/#intro
 ;; (use-package lsp-ui)
 (use-package lsp-ui
@@ -311,12 +336,14 @@
   (lsp-ui-sideline-show-hover t)
   (lsp-ui-doc-enable nil))
 
+;;; flycheck
 ;;; https://www.flycheck.org/en/latest/
 (use-package flycheck
   :ensure t
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode))
 
+;;; company
 ;;; https://company-mode.github.io/
 (use-package company
   :ensure
@@ -331,6 +358,9 @@
   (:map company-mode-map
         ("<tab>". tab-indent-or-complete)
         ("TAB". tab-indent-or-complete)))
+
+;; Some functions that I got with someone else's setup, but that I don't understand
+;; and I'm not currently using.
 
 ;; (defun company-yasnippet-or-completion ()
 ;;   (interactive)
@@ -359,7 +389,7 @@
 ;;             (company-complete-common)
 ;;           (indent-for-tab-command)))))
 
-;;; **** yasnippet:
+;;; yasnippet
 (use-package yasnippet
   :diminish yas-minor-mode
   :defer nil
@@ -384,6 +414,9 @@
 (use-package ivy-yasnippet
   :bind (:map yas-minor-mode-map
               ("C-c s" . ivy-yasnippet)))
+
+(use-package magit)
+
 ;;; ** modes:
 
 ;;; *** prog-mode:
@@ -435,7 +468,8 @@
   ;; comment to disable rustfmt on save
 ;;  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
 
-;; (use-package rust-playground :ensure)
+;;; https://github.com/grafov/rust-playground
+(use-package rust-playground :ensure)
 
 (use-package toml-mode :ensure)
 
@@ -489,6 +523,23 @@
   (define-key julia-repl-mode-map (kbd "<M-RET>") 'julia-repl-send-line)
   (define-key julia-repl-mode-map (kbd "<S-return>") 'julia-repl-send-buffer))
 
+(use-package lsp-julia
+  :config
+  ;; (setq lsp-julia-default-environment "~/.julia/environments/v1.6")
+  :init
+  (add-hook 'julia-mode-hook #'lsp-mode)
+  )
+
+(defun my/julia-repl-send-cell()
+  ;; "Send the current julia cell (delimited by ###) to the julia shell"
+  (interactive)
+  (save-excursion (setq cell-begin (if (re-search-backward "^###" nil t) (point) (point-min))))
+  (save-excursion (setq cell-end (if (re-search-forward "^###" nil t) (point) (point-max))))
+  (set-mark cell-begin)
+  (goto-char cell-end)
+  (julia-repl-send-region-or-line)
+  (next-line))
+
 ;;; *** python:
 
 (use-package python-mode
@@ -498,6 +549,29 @@
 
 (use-package blacken
   :hook (python-mode . blacken-mode))
+
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
+
+;;; *** LaTeX:
+;;; https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/
+
+(setq TeX-auto-save t
+      TeX-parse-self t)
+
+(use-package auctex)
+(use-package pdf-tools)
+;; (setq +latex-viewers '(pdf-tools))
+
+(use-package company-auctex
+  :init (company-auctex-init))
+
+;; view generated PDF with `pdf-tools', not external viewer.
+(unless (assoc "PDF Tools" TeX-view-program-list-builtin)
+  (add-to-list 'TeX-view-program-list-builtin
+               '("PDF Tools" TeX-pdf-tools-sync-view)))
+(add-to-list 'TeX-view-program-selection
+             '(output-pdf "PDF Tools"))
 
 ;;; * custom:
 (setq custom-file my/custom)
