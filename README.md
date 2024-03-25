@@ -1,6 +1,16 @@
 My personal repository for bash, vim, emacs and other configuration files.
 Many lines are taken from others' posted files, sometimes with attribution and often without.
 
+Clone into a `configs` subdirectory of home, and link to files in
+~/configs.  E.g.:
+
+```bash
+ln -s ~/configs/init.el ~/.emacs.d/init.el
+ln -s ~/configs/.zshrc ~/.zshrc
+ln -s ~/configs/.zshenv ~/.zshenv
+ln -s ~/configs/.aliases ~/.aliases
+```
+
 To clone into home directory:
 
 ```bash
