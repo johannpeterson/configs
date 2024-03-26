@@ -95,26 +95,27 @@
 
 ;;; ========================================================
 ;;; ** appearance & behavior:
-(setq inhibit-splash-screen t)
-(setq visible-bell t)
+(setq inhibit-splash-screen t)            ; no splash screen
+(setq visible-bell t)                     ; don't beep
 (unbind-key "C-z")                        ; stop accidentally suspending
-(fset 'yes-or-no-p 'y-or-n-p)
-(put 'scroll-left 'disabled nil)
+(fset 'yes-or-no-p 'y-or-n-p)             ; use short answers
+(put 'scroll-left 'disabled nil)          ; no scroll bar
 (setq-default indent-tabs-mode nil)       ; use spaces, not tabs
-(setq fill-column 80)
-(global-hl-line-mode 1)
-(show-paren-mode 1)
-(setq-default truncate-lines 1)
-(column-number-mode t)
+(setq fill-column 80)                     ; fill to 80 columns
+(global-hl-line-mode 1)                   ; always highlight line
+(show-paren-mode 1)                       ; highlight parentheses
+(setq-default truncate-lines 1)           ; don't wrap lines
+(column-number-mode t)                    ; show column number
 (setq linum-format "%4d ")                ; Line number format
 (delete-selection-mode 1)                 ; Selected text will be overwritten when you start typing
+(setq help-window-select t)               ; Switch to help windows so they can be closed quickly.
 
-(setq show-trailing-whitespace t)
+(setq show-trailing-whitespace t)         ; Show whitespace in buffers.
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)    ; Delete trailing whitespace on save
 
-;; don't ask before following links to git-controlled files:
-(setq vc-follow-symlinks t)
+
+(setq vc-follow-symlinks t)               ; don't ask before following links to git-controlled files.
 
 (set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8-unix)
@@ -517,6 +518,7 @@
 ;;; ========================================================
 ;;; *** julia:
 ;;; https://hershsingh.net/blog/emacs-julia/
+;;; https://github.com/tpapp/julia-repl
 
 (use-package julia-mode)
 (use-package julia-repl
@@ -528,10 +530,10 @@
 
   :config
   ;; Set the terminal backend
-  (julia-repl-set-terminal-backend 'vterm)
+  (julia-repl-set-terminal-backend 'ansi-term)
 
   ;; Keybindings for quickly sending code to the REPL
-  (define-key julia-repl-mode-map (kbd "<C-RET>") 'my/julia-repl-send-cell)
+  (define-key julia-repl-mode-map (kbd "C-<return>") 'my/julia-repl-send-cell)
   (define-key julia-repl-mode-map (kbd "<M-RET>") 'julia-repl-send-line)
   (define-key julia-repl-mode-map (kbd "<S-return>") 'julia-repl-send-buffer))
 
