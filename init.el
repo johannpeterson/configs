@@ -114,7 +114,6 @@
 (add-hook 'before-save-hook
 	  'delete-trailing-whitespace)    ; Delete trailing whitespace on save
 
-
 (setq vc-follow-symlinks t)               ; don't ask before following links to git-controlled files.
 
 (set-charset-priority 'unicode)
@@ -279,9 +278,15 @@
 ;;; smart-mode-line:
 (use-package smart-mode-line
   :config
-  (progn
-   (setq sml/no-confirm-load-theme t)
-   (sml/setup)))
+  (setq sml/no-confirm-load-theme t
+        theme 'respectful
+        sml/shorten-directory t
+        sml/shorten-modes t
+        sml/name-width 50
+        sml/mode-width 'full
+)
+  (sml/setup)
+  )
 
 ;;; vertico:
 ;;; vertico - selection pop-up
@@ -567,6 +572,8 @@
 
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
+
+(setq gud-pdb-command-name "python3 -m pdb")
 
 ;;; ========================================================
 ;;; *** LaTeX:
