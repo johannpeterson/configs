@@ -6,6 +6,7 @@
 ;;; Commentary:
 ;;; * introduction:
 ;;; ** sources:
+;; some emacs init files posted online:
 ;; https://gitlab.com/shilling.jake/emacsd/-/blob/master/config.org?ref_type=heads
 ;; https://github.com/KaratasFurkan/.emacs.d
 ;; https://sanemacs.com/sanemacs.el
@@ -13,9 +14,13 @@
 ;; https://github.com/radian-software/radian?tab=readme-ov-file
 ;; https://github.com/patrickt/emacs
 
+;; help:
 ;; https://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
 ;; https://github.com/jwiegley/use-package
 ;; https://github.com/radian-software/straight.el
+
+;; hard-to-find help about opening buffer list windows:
+;; https://stackoverflow.com/questions/1231188/emacs-list-buffers-behavior
 
 ;;; ** keybindings:
 ;;; Key bindings defined in this init.el
@@ -53,6 +58,7 @@
 ;;; - [ ] use doom? https://github.com/doomemacs/doomemacs
 ;;; - [ ] fix haskell LSP
 ;;; - [ ] test julia mode
+;;; - [ ] figure out Python debugging
 
 ;;; * Code:
 ;;; Code:
@@ -86,6 +92,7 @@
 
 ;;; ========================================================
 ;;; ** constants:
+
 (defconst my/init (eval-when-compile (expand-file-name "init.el" user-emacs-directory)))
 (defconst my/custom (eval-when-compile (expand-file-name "custom.el" user-emacs-directory)))
 (defconst my/backups (eval-when-compile (expand-file-name "backups" user-emacs-directory)))
@@ -109,6 +116,7 @@
 (setq linum-format "%4d ")                ; Line number format
 (delete-selection-mode 1)                 ; Selected text will be overwritten when you start typing
 (setq help-window-select t)               ; Switch to help windows so they can be closed quickly.
+(bind-key "C-x C-b" 'ibuffer)             ; use IBuffer instead of list-buffers
 
 (setq show-trailing-whitespace t)         ; Show whitespace in buffers.
 (add-hook 'before-save-hook
@@ -598,6 +606,7 @@
 
 ;;; ========================================================
 ;;; * custom:
+
 (setq custom-file my/custom)
 (load custom-file t)
 
