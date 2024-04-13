@@ -62,9 +62,9 @@ setopt HIST_IGNORE_SPACE
 setopt AUTOPUSHD
 
 if [ "$is_osx" ]; then
-    export EDITOR=emacs -nw
+    export EDITOR='emacs -nw'
 else
-    export EDITOR=emacs -nw
+    export EDITOR='emacs -nw'
 fi
 
 # default blocksize for ls, df, du
