@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 
 ;; init.el -- Johann Peterson's emacs init file
 
@@ -15,9 +16,11 @@
 ;; https://github.com/patrickt/emacs
 
 ;; help:
-;; https://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
 ;; https://github.com/jwiegley/use-package
 ;; https://github.com/radian-software/straight.el
+
+;; setting the frame size on startup:
+;; https://stackoverflow.com/questions/92971/how-do-i-set-the-size-of-emacs-window
 
 ;; hard-to-find help about opening buffer list windows:
 ;; https://stackoverflow.com/questions/1231188/emacs-list-buffers-behavior
@@ -102,27 +105,26 @@
 
 ;;; ========================================================
 ;;; ** appearance & behavior:
-(setq inhibit-splash-screen t)            ; no splash screen
-(setq visible-bell t)                     ; don't beep
-(unbind-key "C-z")                        ; stop accidentally suspending
-(fset 'yes-or-no-p 'y-or-n-p)             ; use short answers
-(put 'scroll-left 'disabled nil)          ; no scroll bar
-(setq-default indent-tabs-mode nil)       ; use spaces, not tabs
-(setq fill-column 80)                     ; fill to 80 columns
-(global-hl-line-mode 1)                   ; always highlight line
-(show-paren-mode 1)                       ; highlight parentheses
-(setq-default truncate-lines 1)           ; don't wrap lines
-(column-number-mode t)                    ; show column number
-(setq linum-format "%4d ")                ; Line number format
-(delete-selection-mode 1)                 ; Selected text will be overwritten when you start typing
-(setq help-window-select t)               ; Switch to help windows so they can be closed quickly.
-(bind-key "C-x C-b" 'ibuffer)             ; use IBuffer instead of list-buffers
-
-(setq show-trailing-whitespace t)         ; Show whitespace in buffers.
+(setq inhibit-splash-screen t)                       ; no splash screen
+(setq visible-bell t)                                ; don't beep
+(unbind-key "C-z")                                   ; stop accidentally suspending
+(fset 'yes-or-no-p 'y-or-n-p)                        ; use short answers
+(put 'scroll-left 'disabled nil)                     ; no scroll bar
+(setq-default indent-tabs-mode nil)                  ; use spaces, not tabs
+(setq fill-column 80)                                ; fill to 80 columns
+(global-hl-line-mode 1)                              ; always highlight line
+(show-paren-mode 1)                                  ; highlight parentheses
+(setq-default truncate-lines 1)                      ; don't wrap lines
+(column-number-mode t)                               ; show column number
+(setq linum-format "%4d ")                           ; Line number format
+(delete-selection-mode 1)                            ; Selected text will be overwritten when you start typing
+(setq help-window-select t)                          ; Switch to help windows so they can be closed quickly.
+(global-set-key (kbd "C-x C-b") 'ibuffer)            ; use IBuffer instead of list-buffers
+(setq dired-kill-when-opening-new-dired-buffer t)    ; don't keep old dired buffers
+(setq show-trailing-whitespace t)                    ; Show trailing whitespace in buffers.
 (add-hook 'before-save-hook
-	  'delete-trailing-whitespace)    ; Delete trailing whitespace on save
-
-(setq vc-follow-symlinks t)               ; don't ask before following links to git-controlled files.
+	  'delete-trailing-whitespace)               ; Delete trailing whitespace on save
+(setq vc-follow-symlinks t)                          ; don't ask before following links to git-controlled files.
 
 (set-charset-priority 'unicode)
 (prefer-coding-system 'utf-8-unix)
@@ -379,8 +381,8 @@
         ("<tab>". tab-indent-or-complete)
         ("TAB". tab-indent-or-complete)))
 
-;; Some functions that I got with someone else's setup, but that I don't understand
-;; and I'm not currently using.
+;; Some functions that I got with someone else's setup,
+;; but that I don't understand and I'm not currently using.
 
 ;; (defun company-yasnippet-or-completion ()
 ;;   (interactive)
@@ -420,7 +422,7 @@
   (yas-field-highlight-face ((t (:inherit region))))
   :bind*
   (:map yas-minor-mode-map
-   ("C-j" . yas-expand)
+   ("C-TAB" . yas-expand)
    ("TAB" . nil)
    ("<tab>" . nil)
    :map yas-keymap
@@ -436,6 +438,29 @@
               ("C-c s" . ivy-yasnippet)))
 
 (use-package magit)
+
+(defun set-rust-devdocs ()
+  (setq-local devdocs-current-docs '("rust")))
+(defun set-python-devdocs ()
+  (setq-local devdocs-current-docs '("python~3.13")))
+(defun set-julia-devdocs ()
+  (setq-local devdocs-current-docs '("julia~1.10")))
+(defun set-haskell-devdocs ()
+  (setq-local devdocs-current-docs '("haskell~9")))
+(defun set-latex-devdocs ()
+  (setq-local devdocs-current-docs '("latex")))
+
+(use-package devdocs
+  :bind ("C-h D" . devdocs-lookup)
+  :init
+  (add-hook 'python-mode-hook 'set-python-devdocs)
+  (add-hook 'julia-mode-hook 'set-julia-devdocs)
+  (add-hook 'rustic-mode-hook 'set-rust-devdocs)            ; works
+                                        ;  (add-hook 'haskell-mode-hook 'set-haskell-devdocs)
+  (add-hook 'haskell-mode-hook
+            (lambda () (message "Haskell mode")))
+  (add-hook 'TeX-mode-hook 'set-latex-devdocs)            ; doesn't seem to be working
+  )
 
 ;;; ========================================================
 ;;; ** modes:
