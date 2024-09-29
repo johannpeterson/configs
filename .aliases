@@ -3,6 +3,22 @@
 #   some from http://natelandau.com/my-mac-osx-bash_profile/
 #   ------------------------------------------------
 
+if [[ "Darwin" == $(uname -s) ]] ; then
+   is_osx=1
+else
+   is_osx=0
+fi
+
+is_zsh=0
+is_bash=0
+if [[ "zsh" == $(basename $SHELL) ]] ; then
+   echo "zsh"
+   is_zsh=1
+fi
+if [[ "bash" == $(basename $SHELL) ]] ; then
+   is_bash=1
+fi
+
 alias t='todo.sh -ANt'
 alias tree='tree -CF'
 alias less='less -FSRXc'
@@ -48,7 +64,7 @@ lastcommand() {
     fc -ln "$1" "$1" | sed '1s/^[[:space:]]*//'
 }
 
-if [ "$is_osx" ]; then
+if [[ "$is_osx" -eq 1 ]]; then
     echo "OS X alias definitions"
 
     # Pipe to a file on MacOS Desktop:
@@ -86,19 +102,22 @@ if [ "$is_osx" ]; then
     alias recent='ls -alhrt'
     alias dircolors=gdircolors
 
-    alias ghci='TERM=dumb;ghci'
+    alias ghci='TERM=dumb; ghci'
 
+    # This is causing a syntax error in bash, and I haven't figured out why:
     # Add an "alert" for long running commands.  Use like so:
     #   sleep 10; alert
-    alert () {
-          # zsh version, see:
-          # http s://stackoverflow.com/questions/25295186/access-to-last-command-in-zsh-not-previous-command-line
+    # alert () {
+    #       # zsh version, see:
+    #       # http s://stackoverflow.com/questions/25295186/access-to-last-command-in-zsh-not-previous-command-line
           
-          last_cmd=$(echo $history[$HISTCMD] | sed '1s/^[[:space:]]*//' | sed 's/;[[:space:]]*alert[[:space:]]*$//');
-          osa_cmd="display notification \"$last_cmd\" with title \"Command Complete\"";
-          osascript -e $osa_cmd;
-          }
-else
+    #       last_cmd=$(echo $history[$HISTCMD] | sed '1s/^[[:space:]]*//' | sed 's/;[[:space:]]*alert[[:space:]]*$//')
+    #       osa_cmd="display notification \"$last_cmd\" with title \"Command Complete\""
+    #       osascript -e $osa_cmd
+    # }
+fi
+
+if [[ "$is_osx" -ne 1 ]]; then
     echo "Linux alias definitions"
     
     alias ls='ls -Ghp --color'
@@ -118,7 +137,9 @@ else
     alias open='xdg-open'
 fi
 
-if test -n "$ZSH_VERSION"; then
+if [[ -n "$ZSH_VERSION" ]]; then
    # https://superuser.com/questions/232457/zsh-output-whole-history
-   histsearch() { fc -lim "*$@*" 1 }
+   histsearch() { fc -lim "*$@*" 1; }
 fi
+
+
