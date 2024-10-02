@@ -58,6 +58,20 @@ srcgrep () { grep -inrI --exclude=*.log $1 ./; }
 # find by name, with stderr redirected, e.g.
 #   findfile myprogram.py
 findfile () { find / -name "$1" 1>&1 2>/dev/null; }
+
+# Useful for finding the most recent job output on BioHPC
+# https://stackoverflow.com/questions/1015678/get-most-recent-file-in-a-directory-on-linux
+# lastout () { find $1 -type f -name *.out -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1; }
+# lasterr () { find $1 -type f -name *.err -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1; }
+lastout () { 
+	DIR=${1:-.}
+	find $DIR -type f -name *.out -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1
+}
+lasterr () { 
+	DIR=${1:-.}
+	find $DIR -type f -name *.err -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1
+}
+lesslast () { less $(lasterr) $(lastout); }
     
 # http://unix.stackexchange.com/questions/38072/how-can-i-save-the-last-command-to-a-file
 lastcommand() {
