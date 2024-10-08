@@ -2,10 +2,9 @@ My personal repository for bash, vim, emacs and other configuration files.
 Many lines are taken from others' posted files, sometimes with attribution and often without.
 
 Clone into a `configs` subdirectory, and link to files in
-`~/configs`.  E.g.:
+`~/configs`.  E.g., from the home diractory:
 
 ```bash
-cd ~
 git clone https://github.com/johannpeterson/configs.git
 ```
 
