@@ -21,6 +21,7 @@
 (setq mac-command-key-is-meta t)  ; use command as Meta
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier nil)
+(global-display-line-numbers-mode t)
 
 ;; --------------------------------------------------------
 ;; packages set-up stuff
