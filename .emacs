@@ -27,8 +27,11 @@
 ;; --------------------------------------------------------
 
 (require 'package)
-(add-to-list 'package-archives
-             (cons "melpa" "https://melpa.org/packages/") t)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                          ("gnu" . "https://elpa.gnu.org/packages/")
+                          ("org" . "https://orgmode.org/elpa/")))
+;; (add-to-list 'package-archives
+;;             (cons "melpa" "https://melpa.org/packages/") t)
 ;; (add-to-list 'package-archives
 ;;              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
@@ -71,7 +74,15 @@
 (menu-bar-mode 1)
 (tool-bar-mode -1) ;; no toolbar
 
-(add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters)
+
+;; Keep rainbow-delimiters from changing the line height
+(with-eval-after-load 'rainbow-delimiters
+  (dotimes (i rainbow-delimiters-max-face-count)
+    (set-face-attribute (intern (format "rainbow-delimiters-depth-%d-face" (1+ i)))
+                        nil
+                        :inherit 'default)))
 
 (if window-system
     (progn
@@ -96,10 +107,10 @@
 
 (setq latex-run-command "pdflatex")
 
-(add-hook 'latex-mode-hook 'linum-mode)
+(add-hook 'latex-mode-hook 'display-line-numbers-mode)
 (add-hook 'latex-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(add-hook 'tex-mode-hook 'linum-mode)
+(add-hook 'tex-mode-hook 'display-line-numbers-mode)
 
 (setq reftex-plug-into-auctex t)
 
@@ -114,7 +125,7 @@
 (setq fill-column 80)
 (global-hl-line-mode 1)
 ;; no wordwrap
-(setq-default truncate-lines 1) 
+(setq-default truncate-lines 1)
 (line-number-mode t)
 (column-number-mode t)
 
@@ -181,6 +192,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(variable-pitch ((t (:height 1.0))))
+ '(fixed-pitch ((t (:height 1.0))))
  )
 
 ;; ---------------------------------------------------------
@@ -191,9 +204,9 @@
 
 ;; python-mode
 ;; (setq py-install-directory "~/.emacs.d/python-mode")
-;; (add-to-list 'load-path py-install-directory) 
+;; (add-to-list 'load-path py-install-directory)
 ;; (require 'python-mode)
-;; (add-hook 'python-mode-hook (lambda () 
+;; (add-hook 'python-mode-hook (lambda ()
 ;; 			      ;; This breaks the blog export, as the
 ;; 			      ;; python snippet doesn't actually have
 ;; 			      ;; a filename. Need to investigate
@@ -239,19 +252,11 @@ Assumes that the frame is only split into two."
 ;; I don't use the default binding of 'C-x 5', so use toggle-frame-split instead
 (global-set-key (kbd "C-x 5") 'toggle-frame-split)
 
+
 ;; ---------------------------------------------------------
-;; Haskell
-;; https://wiki.haskell.org/Emacs/Inferior_Haskell_processes
+;; markdown
 
-(require 'haskell-interactive-mode)
-(require 'haskell-process)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-(put 'downcase-region 'disabled nil)
-
+(require 'ebib)
 
 ;; ---------------------------------------------------------
 ;; org-mode & LaTeX
@@ -287,22 +292,22 @@ Assumes that the frame is only split into two."
          :clock-in t
          :clock-resume t)
         ("mb" "SMCS Pediatric Leadership Council"
-         entry (file ,(concat jp-org-directory "work.org")) 
+         entry (file ,(concat jp-org-directory "work.org"))
          "* %u SMCS Pediatric Leadership Council :director\n%?"
          :clock-in t
          :clock-resume t)
         ("mc" "SMG Membership Meeting"
-         entry (file ,(concat jp-org-directory "work.org")) 
+         entry (file ,(concat jp-org-directory "work.org"))
          "* %u SMG Membership Meeting\n%?"
          :clock-in t
          :clock-resume t)
         ("md" "Medical Director Meeting"
-         entry (file ,(concat jp-org-directory "work.org")) 
+         entry (file ,(concat jp-org-directory "work.org"))
          "* %u Meeting :director\n%?"
          :clock-in t
          :clock-resume t)
         ("mo" "Other Work Meeting"
-         entry (file ,(concat jp-org-directory "work.org")) 
+         entry (file ,(concat jp-org-directory "work.org"))
          "* %u Meeting\n%?"
          :clock-in t
          :clock-resume t)
@@ -374,7 +379,7 @@ Assumes that the frame is only split into two."
 * ${author-or-editor} (${year}): ${title}
   :PROPERTIES:
   :Custom_ID: ${=key=}
-  :Category: 
+  :Category:
   :Keywords: ${keywords}
   :DOI: ${doi}
   :URL: ${url}
@@ -444,7 +449,7 @@ Assumes that the frame is only split into two."
 ;; https://hershsingh.net/blog/emacs-julia/
 ;; https://github.com/tpapp/julia-repl
 
-(defun my/julia-repl-send-cell() 
+(defun my/julia-repl-send-cell()
   ;; "Send the current julia cell (delimited by ###) to the julia shell"
   (interactive)
   (save-excursion (setq cell-begin (if (re-search-backward "^###" nil t) (point) (point-min))))
@@ -467,7 +472,7 @@ Assumes that the frame is only split into two."
   :config
   ;; Set the terminal backend
   (julia-repl-set-terminal-backend 'vterm)
-  
+
   ;; Keybindings for quickly sending code to the REPL
   (define-key julia-repl-mode-map (kbd "<C-RET>") 'my/julia-repl-send-cell)
   (define-key julia-repl-mode-map (kbd "<M-RET>") 'julia-repl-send-line)
@@ -481,3 +486,38 @@ Assumes that the frame is only split into two."
 
 ;;; .emacs ends here
 
+;; ---------------------------------------------------------
+;; assembly
+;; ---------------------------------------------------------
+
+(require 'gas-mode)
+
+;; Enable asm-mode for ARM assembly files
+(add-to-list 'auto-mode-alist '("\\.s\\'" . asm-mode))
+
+;; Custom keywords for ARM assembly
+(font-lock-add-keywords 'asm-mode
+  '(("\\<\\(mov\\|ldr\\|bl\\|b\\|str\\|add\\|sub\\|mul\\|fmov\\|stp\\|ldp\\|svc\\|bl\\|ret\\|cmp\\|b\\(?:eq\\|ne\\|lt\\|le\\|gt\\|ge\\|mi\\|pl\\)\\)\\>"
+     . font-lock-keyword-face)))
+
+;; Custom indentation
+(setq asm-comment-char ?@)
+(add-hook 'asm-mode-hook
+          (lambda ()
+            (setq tab-width 4)
+            (setq indent-tabs-mode nil)))
+
+;; ---------------------------------------------------------
+;; Haskell
+;; ---------------------------------------------------------
+
+;; https://wiki.haskell.org/Emacs/Inferior_Haskell_processes
+
+(require 'haskell-interactive-mode)
+(require 'haskell-process)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(put 'downcase-region 'disabled nil)
