@@ -25,11 +25,11 @@ alias less='less -FSRXc'
 alias cdl='cd -'
 
 # Go up the directory tree 1...6 levels:
-alias ..='cd ../'                           
-alias ...='cd ../../'                       
-alias .3='cd ../../../'                     
-alias .4='cd ../../../../'                  
-alias .5='cd ../../../../../'               
+alias ..='cd ../'
+alias ...='cd ../../'
+alias .3='cd ../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../../'
 alias .6='cd ../../../../../../'
 
 alias ~='cd ~'                              # ~:            Go Home
@@ -63,16 +63,16 @@ findfile () { find / -name "$1" 1>&1 2>/dev/null; }
 # https://stackoverflow.com/questions/1015678/get-most-recent-file-in-a-directory-on-linux
 # lastout () { find $1 -type f -name *.out -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1; }
 # lasterr () { find $1 -type f -name *.err -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1; }
-lastout () { 
+lastout () {
 	DIR=${1:-.}
 	find $DIR -type f -name *.out -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1
 }
-lasterr () { 
+lasterr () {
 	DIR=${1:-.}
 	find $DIR -type f -name *.err -printf "%T@ %p\n" | sort -n | cut -d' ' -f 2- | tail -n 1
 }
 lesslast () { less $(lasterr) $(lastout); }
-    
+
 # http://unix.stackexchange.com/questions/38072/how-can-i-save-the-last-command-to-a-file
 lastcommand() {
     fc -ln "$1" "$1" | sed '1s/^[[:space:]]*//'
@@ -106,7 +106,7 @@ if [[ "$is_osx" -eq 1 ]]; then
 
     # open a file in OS X Quicklook Preview
     ql () { qlmanage -p "$*" >& /dev/null; }
-    
+
     alias ls='ls -Gp'
     alias ll='ls -alpG'
     alias lll='ls -alpG | less -R'
@@ -124,7 +124,7 @@ if [[ "$is_osx" -eq 1 ]]; then
     # alert () {
     #       # zsh version, see:
     #       # http s://stackoverflow.com/questions/25295186/access-to-last-command-in-zsh-not-previous-command-line
-          
+
     #       last_cmd=$(echo $history[$HISTCMD] | sed '1s/^[[:space:]]*//' | sed 's/;[[:space:]]*alert[[:space:]]*$//')
     #       osa_cmd="display notification \"$last_cmd\" with title \"Command Complete\""
     #       osascript -e $osa_cmd
@@ -133,7 +133,7 @@ fi
 
 if [[ "$is_osx" -ne 1 ]]; then
     echo "Linux alias definitions"
-    
+
     alias ls='ls -Ghp --color'
     alias ll='ls -alphG --color'
     alias lll='ls -alphG --color | less -R'
@@ -149,11 +149,16 @@ if [[ "$is_osx" -ne 1 ]]; then
     alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
     alias open='xdg-open'
+
+    # merge PDF files
+    # https://apple.stackexchange.com/questions/230437/how-can-i-combine-multiple-pdfs-using-the-command-line
+    cpdf () {
+        gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile="$1" "${@:2}"
+    }
+
 fi
 
 if [[ -n "$ZSH_VERSION" ]]; then
    # https://superuser.com/questions/232457/zsh-output-whole-history
    histsearch() { fc -lim "*$@*" 1; }
 fi
-
-
