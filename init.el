@@ -645,3 +645,4 @@
 ;;; End:
 
 ;;; init.el ends here
+(put 'downcase-region 'disabled nil)
