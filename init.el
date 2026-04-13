@@ -181,8 +181,8 @@
 
 ;;; ========================================================
 ;;; ** Editing emacs configuration:
-;;; C-i to edit the configuration file
-;;; C-r to reload the configuration file
+;;; C-c i to edit the configuration file
+;;; C-c r to reload the configuration file
 
 (defun my/open-config ()
   "Open configuration file."
@@ -325,11 +325,12 @@
 ;;; lsp-mode
 (use-package lsp-mode
   :ensure
-  :hook ((c-mode c++-mode js-mode python-mode rust-mode julia-mode web-mode)
+  :hook ((c-mode c++-mode js-mode rust-mode julia-mode web-mode)
          . lsp)
 
   :commands lsp
-  ;; :custom
+  :custom
+  (lsp-jedi-executable-command "python3")
   ;; ;; what to use when checking on-save. "check" is default, I prefer clippy
   ;; (lsp-rust-analyzer-cargo-watch-command "clippy")
   ;; (lsp-eldoc-render-all t)
@@ -596,18 +597,27 @@
 ;;; ========================================================
 ;;; *** python:
 
-(use-package python-mode
-  :hook ((python-mode . (lambda ()
-                          (when (require 'lsp-python nil t)
-                            (lsp))))))
-
+; (use-package poetry
+;   :ensure t)
 (use-package blacken
-  :hook (python-mode . blacken-mode))
+  :ensure t)
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               `((python-mode python-ts-mode) .
+		 ,(eglot-alternatives '("pylsp" "pyls" ("poetry" "run" "pyright-langserver" "--stdio")  ("pyright-langserver" "--stdio") "jedi-language-server")))))
 
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
+;; (use-package python-mode
+;;   :hook ((python-mode . (lambda ()
+;;                           (when (require 'lsp-python nil t)
+;;                             (lsp))))))
 
-(setq gud-pdb-command-name "python3 -m pdb")
+;; (use-package blacken
+;;   :hook (python-mode . blacken-mode))
+
+;; (setq python-shell-interpreter "ipython"
+;;       python-shell-interpreter-args "-i --simple-prompt --InteractiveShell.display_page=True")
+
+;; (setq gud-pdb-command-name "python3 -m pdb")
 
 ;;; ========================================================
 ;;; *** LaTeX:
@@ -629,6 +639,15 @@
                '("PDF Tools" TeX-pdf-tools-sync-view)))
 (add-to-list 'TeX-view-program-selection
              '(output-pdf "PDF Tools"))
+
+;;; ========================================================
+;;; *** lean4:
+
+(use-package lean4-mode
+  :commands lean4-mode
+  :vc (:url "https://github.com/leanprover-community/lean4-mode.git"
+            :rev :last-release
+            ))
 
 ;;; ========================================================
 ;;; * custom:
