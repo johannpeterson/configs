@@ -1,6 +1,4 @@
-;;; -*- lexical-binding: t -*-
-
-;; init.el -- Johann Peterson's emacs init file
+;;; init.el --- Johann Peterson's Emacs configuration  -*- lexical-binding: t -*-
 
 ;; Author: Johann Peterson <johann.peterson@gmail.com>
 
@@ -205,6 +203,24 @@
 
 ;;; ========================================================
 ;;; ** packages:
+
+(require 'package)
+
+(setq package-archives
+      '(("gnu"    . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/packages/")
+        ("melpa"  . "https://melpa.org/packages/")))
+
+(package-initialize)
+
+;; Refresh package list on first run or if stale
+(unless package-archive-contents
+  (condition-case err
+      (package-refresh-contents)
+    (error (message "Package refresh failed: %s" err))))
+
+(setq use-package-always-ensure t)
+
 ;;; *** straight:
 ;; (defvar bootstrap-version)
 ;; (let ((bootstrap-file
@@ -302,7 +318,6 @@
 ;;; vertico - selection pop-up
 ;;; https://github.com/minad/vertico/wiki/Migrating-from-Selectrum-to-Vertico
 (use-package vertico
-;;;  :straight (:files (:defaults "extensions/*"))
   :init
   (vertico-mode))
 
@@ -368,19 +383,6 @@
 
 ;;; company
 ;;; https://company-mode.github.io/
-(use-package company
-  :ensure
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  :bind
-  (:map company-active-map
-              ("C-n". company-select-next)
-              ("C-p". company-select-previous)
-              ("M-<". company-select-first)
-              ("M->". company-select-last))
-  (:map company-mode-map
-        ("<tab>". tab-indent-or-complete)
-        ("TAB". tab-indent-or-complete)))
 
 ;; Some functions that I got with someone else's setup,
 ;; but that I don't understand and I'm not currently using.
@@ -402,15 +404,30 @@
 ;;   (let ((yas/fallback-behavior 'return-nil))
 ;;     (yas/expand)))
 
-;; (defun tab-indent-or-complete ()
-;;   (interactive)
-;;   (if (minibufferp)
-;;       (minibuffer-complete)
-;;     (if (or (not yas/minor-mode)
-;;             (null (do-yas-expand)))
-;;         (if (check-expansion)
-;;             (company-complete-common)
-;;           (indent-for-tab-command)))))
+(defun tab-indent-or-complete ()
+  (interactive)
+  (if (minibufferp)
+      (minibuffer-complete)
+    (if (or (not yas/minor-mode)
+            (null (do-yas-expand)))
+        (if (check-expansion)
+            (company-complete-common)
+          (indent-for-tab-command)))))
+
+(use-package company
+  :ensure
+  :demand t                          ; load immediately, don't defer
+  :config
+  (global-company-mode 1)            ; activate once, after package loads
+  :bind
+  (:map company-active-map
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous)
+        ("M-<" . company-select-first)
+        ("M->" . company-select-last))
+  (:map company-mode-map
+        ("<tab>" . tab-indent-or-complete)
+        ("TAB"   . tab-indent-or-complete)))
 
 ;;; yasnippet
 (use-package yasnippet
@@ -469,7 +486,6 @@
 ;;; *** prog-mode:
 
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
-(add-hook 'prog-mode-hook 'global-company-mode)
 (add-hook 'compilation-mode-hook 'visual-line-mode)
 
 ;;; ========================================================
@@ -634,16 +650,21 @@
   :init (company-auctex-init))
 
 ;; view generated PDF with `pdf-tools', not external viewer.
-(unless (assoc "PDF Tools" TeX-view-program-list-builtin)
-  (add-to-list 'TeX-view-program-list-builtin
-               '("PDF Tools" TeX-pdf-tools-sync-view)))
-(add-to-list 'TeX-view-program-selection
-             '(output-pdf "PDF Tools"))
+(with-eval-after-load 'tex
+  (unless (assoc "PDF Tools" TeX-view-program-list-builtin)
+    (add-to-list 'TeX-view-program-list-builtin
+                 '("PDF Tools" TeX-pdf-tools-sync-view)))
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "PDF Tools"))
+)
 
 ;;; ========================================================
 ;;; *** lean4:
 
+(use-package dash :ensure t)   ; required by lean4-mode (not auto-resolved via :vc)
+
 (use-package lean4-mode
+  :ensure nil
   :commands lean4-mode
   :vc (:url "https://github.com/leanprover-community/lean4-mode.git"
             :rev :last-release
@@ -656,7 +677,21 @@
 (load custom-file t)
 
 ;;; ** file settings:
-;;; Local Variables:
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-vc-selected-packages
+   '((lean4-mode :url
+                 "https://github.com/leanprover-community/lean4-mode.git"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+ ;;; Local Variables:
 ;;; outline-regexp: ";;; \\*+"
 ;;; outline-heading-end-regexp: ":\n"
 ;;; eval: (outline-minor-mode 1)
