@@ -668,7 +668,11 @@
   :commands lean4-mode
   :vc (:url "https://github.com/leanprover-community/lean4-mode.git"
             :rev :last-release
-            ))
+            )
+  :config
+  (setq-default tab-width 2)
+  (setq-default indent-tabs-mode nil) ; Use spaces instead of tabs
+  )
 
 ;;; ========================================================
 ;;; * custom:
