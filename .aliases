@@ -42,6 +42,8 @@ alias cic='set completion-ignore-case On'   # cic:          Make tab-completion 
 
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 
+alias edit=$EDITOR
+
 # alternative to tree command - omits .dotted files
 # https://stackoverflow.com/questions/3455625/linux-command-to-print-directory-structure-in-the-form-of-a-tree
 alias treefind='find .  -not -path "*/\.*" | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"'

@@ -62,10 +62,12 @@ setopt HIST_IGNORE_SPACE
 setopt AUTOPUSHD
 unsetopt pathdirs
 
-if [ "$is_osx" ]; then
-    export EDITOR='emacs -nw'
+if (( ${+commands[fresh]} )); then
+    export EDITOR='fresh'
+    echo "fresh editor installed - setting as default"
 else
     export EDITOR='emacs -nw'
+    "setting 'emacs -nw' as default editor"
 fi
 
 # default blocksize for ls, df, du
@@ -91,6 +93,7 @@ export LESS=" -R"
 
 if [ -f ~/.aliases ]; then
     . ~/.aliases
+    echo "Sourcing .aliases"
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
