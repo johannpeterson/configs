@@ -119,6 +119,8 @@ if [[ "$is_osx" -eq 1 ]]; then
     alias dircolors=gdircolors
 
     alias ghci='TERM=dumb; ghci'
+    
+    alias ss='kitten @ action save_as_session session_file.kitty-session'
 
     # This is causing a syntax error in bash, and I haven't figured out why:
     # Add an "alert" for long running commands.  Use like so:
