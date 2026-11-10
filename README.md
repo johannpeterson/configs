@@ -7,6 +7,10 @@ Clone into a `configs` subdirectory, and link to files in
 ```bash
 git clone https://github.com/johannpeterson/configs.git
 ```
+or
+```bash
+git clone git@github.com:johannpeterson/configs.git
+```
 
 then
 
