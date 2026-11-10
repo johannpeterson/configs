@@ -62,6 +62,17 @@ setopt HIST_IGNORE_SPACE
 setopt AUTOPUSHD
 unsetopt pathdirs
 
+#   ----------------
+#   Oh-My-Zsh 
+#   ----------------
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
+#   ----------------
+
 if (( ${+commands[fresh]} )); then
     export EDITOR='fresh'
     echo "fresh editor installed - setting as default"
