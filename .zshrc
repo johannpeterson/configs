@@ -60,7 +60,18 @@ setopt APPEND_HISTORY
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE
 setopt AUTOPUSHD
-unsetopt pathdirs
+
+#   ----------------
+#   Make tab completion faster
+#   ----------------
+
+unsetopt path_dirs
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' fake-files '/Volumes:.'
+
+# Add slow directories here:
+#zstyle ':completion:*:complete:-command-::*' ignored-patterns '*/Library/Mobile Documents/*'
 
 #   ----------------
 #   Oh-My-Zsh 
@@ -146,6 +157,7 @@ export PATH
 # <<< juliaup initialize <<<
 
 # >>> conda initialize >>>
+[[ -n $CONDA_PREFIX ]] && path=("$CONDA_PREFIX/bin" ${path:#$CONDA_PREFIX/bin})
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/johann/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
