@@ -66,9 +66,9 @@ setopt AUTOPUSHD
 #   ----------------
 
 unsetopt path_dirs
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
-zstyle ':completion:*' fake-files '/Volumes:.'
+# zstyle ':completion:*' use-cache on
+# zstyle ':completion:*' cache-path ~/.zsh/cache
+# zstyle ':completion:*' fake-files '/Volumes:.'
 
 # Add slow directories here:
 #zstyle ':completion:*:complete:-command-::*' ignored-patterns '*/Library/Mobile Documents/*'
@@ -79,9 +79,9 @@ zstyle ':completion:*' fake-files '/Volumes:.'
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(git)
+plugins=(git fzf-tab)
 source $ZSH/oh-my-zsh.sh
-
+    
 #   ----------------
 
 if (( ${+commands[fresh]} )); then
@@ -176,3 +176,16 @@ unset __conda_setup
 # >>> Added by Spyder >>>
 alias uninstall-spyder=/Users/johann/Library/spyder-6/uninstall-spyder.sh
 # <<< Added by Spyder <<<
+
+#  ----------------
+#   Carapace 
+#   ----------------
+
+if (( ${+commands[carapace]} )); then
+    autoload -U compinit && compinit
+    source "/opt/homebrew/opt/fzf-tab/share/fzf-tab/fzf-tab.zsh"
+    export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+    zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+    source <(carapace _carapace)
+fi
+
